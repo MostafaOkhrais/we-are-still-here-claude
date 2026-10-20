@@ -7,7 +7,7 @@
     event: {ar: '\u0641\u0639\u0627\u0644\u064a\u0629', en: 'Event'}
   };
   var T = {
-    fail: {ar: '\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0623\u062e\u0628\u0627\u0631. \u062d\u0627\u0648\u0644 \u0645\u062c\u062f\u062f\u064b\u0627 \u0644\u0627\u062d\u0642\u064b\u0627.', en: 'Could not load news. Please try again later.'},
+    fail: {ar: 'تعذّر تحميل الأخبار. يُرجى المحاولة مجددًا لاحقًا.', en: 'The news could not be loaded. Please try again later.'},
     upcoming: {ar: '\u0642\u0627\u062f\u0645\u0629', en: 'Upcoming'},
     ended: {ar: '\u0627\u0646\u062a\u0647\u062a', en: 'Past'},
     published: {ar: '\u0646\u064f\u0634\u0631 \u0628\u062a\u0627\u0631\u064a\u062e', en: 'Published'},
@@ -70,6 +70,8 @@
     list.textContent = '';
     var rows = cache.filter(function(p){ return filter === 'all' || p.category === filter; });
     show(empty, rows.length === 0);
+    var tabs = document.querySelector('.tabs');
+    if(tabs){ tabs.hidden = cache.length === 0; tabs.classList.toggle('hidden', cache.length === 0); }
     rows.forEach(function(p){ list.appendChild(card(p)); });
   }
 

@@ -2,11 +2,11 @@
   function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'ar'; }
   var T = {
     sending: {ar:'جارٍ الاشتراك…', en:'Subscribing…'},
-    ok: {ar:'تم اشتراكك في النشرة البريدية. أهلًا بك!', en:'You are subscribed to the newsletter. Welcome!'},
-    check: {ar:'أرسلنا لك رسالة لتأكيد الاشتراك — تحقق من بريدك.', en:'Check your inbox and click the link to confirm your subscription.'},
-    bad: {ar:'يرجى إدخال بريد إلكتروني صالح.', en:'Please enter a valid email address.'},
-    rate: {ar:'محاولات كثيرة مؤخرًا — حاول مجددًا بعد ساعة.', en:'Too many attempts recently — please try again in an hour.'},
-    fail: {ar:'تعذّر الاشتراك. حاول مجددًا لاحقًا.', en:'Could not subscribe. Please try again later.'}
+    ok: {ar:'تم اشتراكك في النشرة البريدية. شكرًا لك.', en:'You have been subscribed to the newsletter. Thank you.'},
+    check: {ar:'أرسلنا إليك رسالة لتأكيد الاشتراك. يُرجى مراجعة بريدك الإلكتروني.', en:'We have sent you an email. Please click the link in it to confirm your subscription.'},
+    bad: {ar:'يُرجى إدخال عنوان بريد إلكتروني صالح.', en:'Please enter a valid email address.'},
+    rate: {ar:'تكررت المحاولات خلال وقت قصير. يُرجى المحاولة مجددًا بعد ساعة.', en:'There have been too many attempts in a short time. Please try again in an hour.'},
+    fail: {ar:'تعذّر إتمام الاشتراك. يُرجى المحاولة مجددًا لاحقًا.', en:'We could not complete your subscription. Please try again later.'}
   };
   function t(k){ return T[k][lang()]; }
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

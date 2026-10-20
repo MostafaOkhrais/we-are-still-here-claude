@@ -78,17 +78,17 @@ export function button(href, label) {
 
 const T = {
   confirm: {
-    en: { subject: 'Confirm your subscription', hi: 'Thank you for subscribing to our newsletter.', ask: 'Please confirm your email address to start receiving updates:', cta: 'Confirm subscription', ign: 'If you did not request this, you can ignore this email and nothing will happen.' },
-    ar: { subject: 'أكّد اشتراكك في النشرة', hi: 'شكرًا لاشتراكك في نشرتنا البريدية.', ask: 'يرجى تأكيد بريدك الإلكتروني لبدء استلام الأخبار:', cta: 'تأكيد الاشتراك', ign: 'إن لم تطلب هذا الاشتراك فتجاهل هذه الرسالة ولن يحدث شيء.' },
+    en: { subject: 'Confirm your subscription', hi: 'Thank you for subscribing to our newsletter.', ask: 'Please confirm your email address to start receiving updates:', cta: 'Confirm subscription', ign: 'If you did not request this subscription, please ignore this email; no further action is needed.' },
+    ar: { subject: 'أكّد اشتراكك في النشرة', hi: 'شكرًا لاشتراكك في نشرتنا البريدية.', ask: 'يُرجى تأكيد بريدك الإلكتروني لبدء استلام الأخبار:', cta: 'تأكيد الاشتراك', ign: 'إن لم تطلب هذا الاشتراك، فيُرجى تجاهل هذه الرسالة؛ إذ لا يلزم أي إجراء.' },
   },
   welcome: {
-    en: { subject: 'You are subscribed', hi: 'Your subscription is confirmed. Welcome!', more: 'We will write to you with news from the initiative and Gaza\'s university students.' },
-    ar: { subject: 'تم تأكيد اشتراكك', hi: 'تم تأكيد اشتراكك. أهلًا بك!', more: 'سنراسلك بأخبار المبادرة وطلبة جامعات غزة.' },
+    en: { subject: 'Your subscription is confirmed', hi: 'Your subscription has been confirmed. Thank you for joining us.', more: 'We will write to you with news from the initiative and from university students in Gaza.' },
+    ar: { subject: 'تم تأكيد اشتراكك', hi: 'تم تأكيد اشتراكك. شكرًا لانضمامك إلينا.', more: 'سنراسلك بأخبار المبادرة وأخبار طلاب الجامعات في غزة.' },
   },
   unsub: { en: 'Unsubscribe', ar: 'إلغاء الاشتراك' },
   receipt: {
-    en: { subject: 'We received your message', hi: 'Thank you for contacting us.', more: 'We received your message and will reply as soon as we can.' },
-    ar: { subject: 'استلمنا رسالتك', hi: 'شكرًا لتواصلك معنا.', more: 'استلمنا رسالتك وسنرد عليك في أقرب وقت.' },
+    en: { subject: 'We have received your message', hi: 'Thank you for contacting us.', more: 'We have received your message and will reply as soon as we can.' },
+    ar: { subject: 'تم استلام رسالتك', hi: 'شكرًا لتواصلك معنا.', more: 'استلمنا رسالتك وسنرد عليك في أقرب وقت ممكن.' },
   },
 };
 

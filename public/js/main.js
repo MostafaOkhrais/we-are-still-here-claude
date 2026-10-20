@@ -1,5 +1,5 @@
 (function(){
-  var KEY='wash-lang';
+  var KEY='wash-lang-v2';
   function initial(){ try{var q=null; try{q=new URLSearchParams(window.location.search).get('lang');}catch(e){} if(q==='ar'||q==='en') return q; return localStorage.getItem(KEY)||'en';}catch(e){return 'en';} }
   function current(){ return document.documentElement.lang==='ar'?'ar':'en'; }
   function apply(lang, initial){
@@ -168,7 +168,7 @@
         var toTop=document.createElement('button');
     toTop.className='to-top';
     toTop.setAttribute('type','button');
-    var NS='https://www.w3.org/2000/svg';
+    var NS='http://www.w3.org/2000/svg';
     var ring=document.createElementNS(NS,'svg');
     ring.setAttribute('class','progress-ring');
     ring.setAttribute('viewBox','0 0 52 52');

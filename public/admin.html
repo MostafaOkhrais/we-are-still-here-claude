@@ -2,20 +2,24 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<script src="/js/lang-init.js?v=20261020"></script><meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/js/lang-init.js?v=20261038"></script><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="google-site-verification" content="SxXRoXKBKzcJDUv7nZQZGLAdc99sD86745azFdv3l8E" />
 <title>Admin — We Are Still Here | Baqoun</title>
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#3A4D2A">
 <meta name="description" content="Private admin dashboard.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="/assets/logo.png" type="image/png">
-<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261020">
-<link rel="stylesheet" href="/css/style.css?v=20261020">
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261038">
+<link rel="stylesheet" href="/css/style.css?v=20261038">
 </head>
 <body>
-<a class="skip" href="#main" data-ar="تجاوز إلى المحتوى الرئيسي" data-en="Skip to content">Skip to content</a>
+<a class="skip" href="#main" data-ar="انتقل إلى المحتوى الرئيسي" data-en="Skip to main content">Skip to main content</a>
 <header class="site-header"><div class="container nav">
-<a class="brand" href="/"><img src="/assets/logo.png" alt="We Are Still Here logo" data-ar-alt="شعار مبادرة باقون" data-en-alt="We Are Still Here logo" width="40" height="40"><span><span data-ar="باقون | لوحة الإدارة" data-en="We Are Still Here | Admin">We Are Still Here | Admin</span><small data-ar="صفحة خاصة — غير مفهرسة" data-en="Private page — not indexed">Private page — not indexed</small></span></a>
+<a class="brand" href="/"><img src="/assets/logo-160.png" alt="We Are Still Here logo" data-ar-alt="شعار مبادرة باقون" data-en-alt="We Are Still Here logo" width="40" height="40"><span><span data-ar="باقون | لوحة الإدارة" data-en="We Are Still Here | Admin">We Are Still Here | Admin</span><small data-ar="صفحة خاصة — غير مفهرسة" data-en="Private page — not indexed">Private page — not indexed</small></span></a>
 <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu" data-ar-label="فتح القائمة" data-en-label="Open menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
 <nav class="nav-links" id="main-nav" aria-label="Main navigation" data-ar-label="التنقل الرئيسي" data-en-label="Main navigation"><a class="btn ghost" href="/" data-ar="عودة للموقع" data-en="Back to site">Back to site</a><button class="lang-toggle" type="button" aria-label="Switch to Arabic" data-ar="EN" data-en="AR">AR</button></nav>
 </div></header>
@@ -64,13 +68,13 @@
 <label for="c-subject"><span data-ar="الموضوع" data-en="Subject">Subject</span><input id="c-subject" maxlength="150"></label>
 <label for="c-body"><span data-ar="النص (فقرات مفصولة بسطر فارغ؛ يُضاف رابط إلغاء الاشتراك تلقائيًا)" data-en="Message (paragraphs separated by a blank line; an unsubscribe link is added automatically)">Message (paragraphs separated by a blank line; an unsubscribe link is added automatically)</span><textarea id="c-body" maxlength="20000"></textarea></label>
 <label for="c-audience"><span data-ar="الفئة" data-en="Audience">Audience</span><select id="c-audience"><option value="all" data-ar="كل المشتركين النشطين" data-en="All active subscribers">All active subscribers</option><option value="ar" data-ar="المشتركون بالعربية" data-en="Arabic subscribers">Arabic subscribers</option><option value="en" data-ar="المشتركون بالإنجليزية" data-en="English subscribers">English subscribers</option></select></label>
-<div class="cta-row"><button class="btn ghost" type="button" id="camp-test" data-ar="إرسال تجريبي لي" data-en="Send a test to me">Send a test to me</button><button class="btn" type="button" id="camp-send" data-ar="إرسال للمشتركين" data-en="Send to subscribers">Send to subscribers</button></div>
+<div class="cta-row"><button class="btn ghost" type="button" id="camp-test" data-ar="أرسل لي رسالة تجريبية" data-en="Send me a test email">Send me a test email</button><button class="btn" type="button" id="camp-send" data-ar="إرسال للمشتركين" data-en="Send to subscribers">Send to subscribers</button></div>
 <p class="form-status" id="camp-status" role="status" aria-live="polite" hidden></p>
 </form>
 <div class="table-scroll"><table class="admin-table" id="camp-table"><thead><tr><th data-ar="التاريخ" data-en="Date">Date</th><th data-ar="الموضوع" data-en="Subject">Subject</th><th data-ar="أُرسلت / فشلت" data-en="Sent / failed">Sent / failed</th><th data-ar="بواسطة" data-en="By">By</th></tr></thead><tbody></tbody></table></div>
 </div>
 <div class="card">
-<h2 class="sec-title" data-ar="إدارة الأخبار والفعاليات" data-en="Manage news & events">Manage news & events</h2>
+<h2 class="sec-title" data-ar="إدارة الأخبار والفعاليات" data-en="Manage news and events">Manage news and events</h2>
 <form id="post-form" novalidate>
 <input type="hidden" id="p-id">
 <div class="grid c2">
@@ -80,7 +84,7 @@
 <label for="p-body-ar"><span data-ar="النص (عربي)" data-en="Body (Arabic)">Body (Arabic)</span><textarea id="p-body-ar" required maxlength="20000" data-ar-ph="نص المنشور…" data-en-ph="Post body…" placeholder="Post body…"></textarea></label>
 <label for="p-body-en"><span data-ar="النص (إنجليزي)" data-en="Body (English)">Body (English)</span><textarea id="p-body-en" required maxlength="20000" dir="ltr" placeholder="Post body…"></textarea></label>
 <div class="grid c2">
-<label for="p-cat"><span data-ar="النوع" data-en="Category">Category</span><select id="p-cat"><option value="news" data-ar="خبر" data-en="News">News</option><option value="update" data-ar="تطور" data-en="Update">Update</option><option value="event" data-ar="فعالية" data-en="Event">Event</option></select></label>
+<label for="p-cat"><span data-ar="النوع" data-en="Category">Category</span><select id="p-cat"><option value="news" data-ar="خبر" data-en="News">News</option><option value="update" data-ar="تحديث" data-en="Update">Update</option><option value="event" data-ar="فعالية" data-en="Event">Event</option></select></label>
 <label for="p-date"><span data-ar="موعد الفعالية (للفعاليات فقط)" data-en="Event date (events only)">Event date (events only)</span><input id="p-date" type="date" dir="ltr"></label>
 </div>
 <label for="p-loc"><span data-ar="المكان (اختياري)" data-en="Location (optional)">Location (optional)</span><input id="p-loc" maxlength="200" data-ar-ph="مثال: غزة / عبر الإنترنت" data-en-ph="e.g. Gaza / Online" placeholder="e.g. Gaza / Online"></label>
@@ -98,6 +102,6 @@
 <footer><div class="container foot-grid foot-single">
 <div><h4>We Are Still Here | باقون</h4><p class="foot-tag" data-ar="صفحة إدارة خاصة غير مفهرسة." data-en="Private, non-indexed admin page.">Private, non-indexed admin page.</p></div>
 </div><div class="copy"><div class="container" data-ar="© باقون | We Are Still Here — جميع الحقوق محفوظة." data-en="© باقون | We Are Still Here — All rights reserved.">© باقون | We Are Still Here — All rights reserved.</div></div></footer>
-<script src="/js/app-config.js?v=20261020" charset="utf-8"></script><script src="/js/main.js?v=20261020" charset="utf-8"></script><script src="/js/admin.js?v=20261020" charset="utf-8"></script>
+<script src="/js/app-config.js?v=20261038" charset="utf-8"></script><script src="/js/main.js?v=20261038" charset="utf-8"></script><script src="/js/admin.js?v=20261038" charset="utf-8"></script>
 </body>
 </html>

@@ -4,9 +4,9 @@
   var T = {
     loginFail: {ar:'بيانات الدخول غير صحيحة.', en:'Incorrect sign-in details.'},
     rate: {ar:'محاولات كثيرة — حاول لاحقًا.', en:'Too many attempts — try again later.'},
-    expired: {ar:'انتهت الجلسة — سجّل الدخول مجددًا.', en:'Session expired — please sign in again.'},
-    loadFail: {ar:'تعذّر تحميل البيانات.', en:'Could not load data.'},
-    saveFail: {ar:'تعذّر حفظ التغيير.', en:'Could not save the change.'},
+    expired: {ar:'انتهت الجلسة. يُرجى تسجيل الدخول مجددًا.', en:'Your session has expired. Please sign in again.'},
+    loadFail: {ar:'تعذّر تحميل البيانات.', en:'The data could not be loaded.'},
+    saveFail: {ar:'تعذّر حفظ التغيير.', en:'The change could not be saved.'},
     welcome: {ar:'مرحبًا', en:'Welcome'},
     noRows: {ar:'لا توجد عناصر بعد.', en:'No items yet.'},
     unsub: {ar:'إلغاء الاشتراك', en:'Unsubscribe'},
@@ -205,7 +205,7 @@
 
   // ---- posts ----
   var POST_CAT = {
-    news: {ar: 'خبر', en: 'News'}, update: {ar: 'تطور', en: 'Update'}, event: {ar: 'فعالية', en: 'Event'}
+    news: {ar: 'خبر', en: 'News'}, update: {ar: 'تحديث', en: 'Update'}, event: {ar: 'فعالية', en: 'Event'}
   };
   var PT = {
     published: {ar: 'منشور', en: 'Published'}, draft: {ar: 'مسودة', en: 'Draft'},

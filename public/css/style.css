@@ -513,3 +513,14 @@ html[dir="ltr"] .scroll-progress{transform-origin:left center}
 .admin-wrap .status-sel + .btn{margin-inline-start:var(--space-sm)}
 .admin-wrap td .btn{min-height:36px;padding:6px 14px;font-size:.8rem}
 .form-note{font-size:var(--fs-sm);color:var(--muted);margin:0 0 var(--space-md)}
+/* Long English taglines must wrap or truncate instead of widening the page on phones */
+.brand>span{min-width:0;flex:1 1 auto}
+/* Admin: tables scroll inside their card; they must not widen the page grid */
+.admin-wrap{grid-template-columns:minmax(0,1fr)}
+.admin-wrap>*{min-width:0}
+/* Social media logo buttons */
+.social-row .social-btn{width:44px;height:44px;min-height:44px;padding:0;border-radius:999px}
+.social-btn svg{width:20px;height:20px;fill:currentColor}
+.social-row .social-btn:hover{background:#fff;color:#1F2A18}
+/* Footer content keeps the same side gutter as the page */
+footer .container{padding-inline:var(--space-lg)}

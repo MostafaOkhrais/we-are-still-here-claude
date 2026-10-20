@@ -14,6 +14,6 @@ EMAIL_DRY_RUN=1
 # RESEND_API_KEY=re_xxx
 # EMAIL_FROM=We Are Still Here <noreply@wearestillhere.uk>
 # Where new contact messages are forwarded.
-# NOTIFY_EMAIL=wash.team.info@gmail.com
+# NOTIFY_EMAIL=info@wearestillhere.uk
 # Set to 1 to send visitors an automatic "we received your message" email.
 # CONTACT_RECEIPT=1

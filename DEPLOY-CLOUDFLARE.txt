@@ -21,6 +21,7 @@ What the backend does
   active immediately (no confirmation) and the "send newsletter" button is disabled.
 
 A) One-time Cloudflare setup (dashboard / terminal)
+   0. Node 20 is pinned in .node-version (Cloudflare Pages reads it).
    1. npm install
    2. npx wrangler login
    3. npx wrangler d1 create wash-db
@@ -43,9 +44,15 @@ C) Pages project
         SITE_URL         https://wearestillhere.uk       (used in email links)
         RESEND_API_KEY   (Secret)  from https://resend.com        [email]
         EMAIL_FROM       We Are Still Here <noreply@wearestillhere.uk>   [email]
-        NOTIFY_EMAIL     wash.team.info@gmail.com   (new contact messages are forwarded here)
+        NOTIFY_EMAIL     info@wearestillhere.uk   (new contact messages are forwarded here)
         CONTACT_RECEIPT  1   (optional: auto-reply "we received your message" to visitors)
    5. Deploy, then test on the *.pages.dev address first (checklist G).
+
+   Mailbox for info@wearestillhere.uk (shown on the site, used for NOTIFY_EMAIL):
+   the address must exist before launch. Free option: Cloudflare dashboard > Email > Email Routing >
+   enable it for wearestillhere.uk, add the custom address info@ and forward it to your own inbox
+   (verify the destination address when Cloudflare emails you). Replies still need a mail client
+   that can send as info@ (or reply from your own inbox).
 
    Email setup (Resend): add the domain wearestillhere.uk in Resend, add the DNS records it shows
    (SPF/DKIM) in Cloudflare DNS, wait until it says Verified. EMAIL_FROM must use that domain.
@@ -63,8 +70,21 @@ E) Extra protection
         URI path in /api/contact, /api/newsletter  20 requests / hour / IP -> Block
    3. Security > Bots: Bot Fight Mode On
 
-F) Search engines
-   Google Search Console: add the domain, submit https://wearestillhere.uk/sitemap.xml
+F) Search engines (do after the domain is live)
+   1. Google Search Console > Add property > "Domain" wearestillhere.uk > add the TXT record it shows in
+      Cloudflare DNS. (The site also carries the older HTML-tag verification, so either works.)
+   2. Search Console > Sitemaps > submit  https://wearestillhere.uk/sitemap.xml
+   3. Search Console > URL inspection > test the home page and request indexing.
+   4. Bing Webmaster Tools > import the site from Search Console, or add it and submit the same sitemap.
+   5. Social previews: paste https://wearestillhere.uk/ into the Facebook Sharing Debugger and the
+      LinkedIn Post Inspector, and press "Scrape again" so they pick up assets/og-image.png.
+   6. Old Vercel site (we-are-still-here-ten.vercel.app): add a permanent redirect to the new domain, or
+      remove it, so there is no duplicate site.
+   7. Structured data: run https://search.google.com/test/rich-results on the home page (Organization).
+   SEO already in place: one canonical URL per page, unique titles and descriptions, Open Graph and
+   Twitter cards with a 1200x630 image, JSON-LD (Organization, WebSite, BreadcrumbList), sitemap.xml,
+   robots.txt (blocks /admin, /api, /subscription), noindex on admin / 404 / subscription pages,
+   favicon + Apple touch icon + web manifest, security.txt.
 
 G) Post-deploy checklist
    - Pages load; English default; AR toggle works

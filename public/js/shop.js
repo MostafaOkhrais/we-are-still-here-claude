@@ -33,13 +33,13 @@
     img.setAttribute("height", "640");
     if(idx < 3) img.setAttribute("fetchpriority", "high");
     img.className = "w-full h-full object-cover group-hover:scale-105 transition duration-500";
-    var badge = el("span", "absolute bottom-3 end-3 bg-olive text-white text-sm font-black px-4 py-1.5 rounded-full shadow-soft");
+    var badge = el("span", "absolute bottom-2 end-2 sm:bottom-3 sm:end-3 bg-olive text-white text-xs sm:text-sm font-extrabold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-soft");
     badge.setAttribute("dir", "ltr");
     badge.textContent = "\u00A3" + p.price;
     link.appendChild(img);
     link.appendChild(badge);
-    var body = el("div", "p-5 flex flex-col flex-1");
-    var h = el("h3", "font-extrabold text-[15px] leading-6");
+    var body = el("div", "p-3 sm:p-5 flex flex-col flex-1");
+    var h = el("h3", "font-extrabold text-sm sm:text-[15px] leading-snug sm:leading-6");
     tx(h, p.nameAr, p.name);
     var tp = el("p", "mt-2 text-xs font-bold text-gold-deep");
     tx(tp, p.typeAr, p.type);
@@ -47,7 +47,7 @@
     btn.setAttribute("href", base + p.slug + "/");
     btn.setAttribute("target", "_blank");
     btn.setAttribute("rel", "noopener noreferrer");
-    btn.className = "mt-4 inline-flex items-center justify-center gap-2 bg-olive hover:bg-olive-dark text-white px-6 py-3 rounded-full font-bold text-sm transition w-full";
+    btn.className = "mt-3 sm:mt-4 inline-flex items-center justify-center gap-2 bg-olive hover:bg-olive-dark text-white px-3 sm:px-6 py-3 rounded-full font-bold text-sm transition w-full";
     var bt = el("span");
     tx(bt, "عرض المنتج", "View product");
     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
