@@ -1,0 +1,11 @@
+name = "we-are-still-here"
+compatibility_date = "2025-07-01"
+pages_build_output_dir = "./public"
+
+# Cloudflare D1 database. Create it once with:  npx wrangler d1 create wash-db
+# then paste the printed database_id below. (Local development works with any value.)
+[[d1_databases]]
+binding = "DB"
+database_name = "wash-db"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /subscription
+
+Sitemap: https://wearestillhere.uk/sitemap.xml

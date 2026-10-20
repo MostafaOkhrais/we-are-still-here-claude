@@ -1,0 +1,19 @@
+# Copy to .dev.vars for local development (.dev.vars is git-ignored). Production values go in
+# Cloudflare Pages > Settings > Variables and Secrets.
+
+# Random string used to hash visitor IPs before they are stored (any long random value).
+IP_SALT=change-me-long-random-string
+
+# Public site URL used in email links (leave unset locally).
+# SITE_URL=https://wearestillhere.uk
+
+# --- Email (optional) ---
+# Log emails to the console instead of sending (local testing of the newsletter confirmation flow).
+EMAIL_DRY_RUN=1
+# Production: a Resend API key (https://resend.com) and a sender on a domain you verified there.
+# RESEND_API_KEY=re_xxx
+# EMAIL_FROM=We Are Still Here <noreply@wearestillhere.uk>
+# Where new contact messages are forwarded.
+# NOTIFY_EMAIL=wash.team.info@gmail.com
+# Set to 1 to send visitors an automatic "we received your message" email.
+# CONTACT_RECEIPT=1

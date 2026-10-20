@@ -1,0 +1,84 @@
+Deployment - Cloudflare Pages + D1 - wearestillhere.uk
+=======================================================
+
+Architecture (no external backend)
+  public/      the published site (HTML, js, css, assets, _headers, _routes.json)
+  functions/   the API (Cloudflare Pages Functions): /api/*   -> contact form, newsletter, news, admin
+  migrations/  D1 (SQLite) schema
+  scripts/     create-admin.mjs
+  src/         Tailwind source and source fonts (not published)
+Only public/ is served. functions/ runs as code.
+
+What the backend does
+  - Contact form -> stored in D1, optional email notification to you (NOTIFY_EMAIL)
+  - Newsletter -> double opt-in (confirmation link), welcome email, one-click unsubscribe,
+    List-Unsubscribe headers, send campaigns from the admin page
+  - News/events -> managed in /admin, shown on /news
+  - Admin -> own sign-in (PBKDF2 passwords, HttpOnly SameSite=Strict session cookie, CSRF checks,
+    failed-login throttling). Add Cloudflare Access on top (step E) for a second lock.
+  - Abuse protection: per-IP rate limits (D1), honeypot + timing check, link limit, body limits.
+  Without RESEND_API_KEY everything still works, but no email is sent: newsletter sign-ups become
+  active immediately (no confirmation) and the "send newsletter" button is disabled.
+
+A) One-time Cloudflare setup (dashboard / terminal)
+   1. npm install
+   2. npx wrangler login
+   3. npx wrangler d1 create wash-db
+      -> copy the printed database_id into wrangler.toml (database_id = "...")
+   4. npm run db:migrate:remote           (creates the tables in production)
+   5. npm run admin:create -- --remote    (prompts for the admin email and a 12+ character password;
+                                            run again any time to reset a password)
+
+B) Push to GitHub
+   1. npm run build                       (writes public/css/tailwind.css; commit it)
+   2. git add -A ; git status             (.dev.vars, node_modules, .wrangler must NOT appear)
+   3. git commit ; git push origin main
+
+C) Pages project
+   1. Workers & Pages > Create > Pages > Connect to Git > this repository
+   2. Framework preset: None | Build command: npm run build | Build output directory: public
+   3. Settings > Bindings > Add > D1 database: variable name  DB  -> database  wash-db   (Production)
+   4. Settings > Variables and Secrets (Production):
+        IP_SALT          (Secret)  long random string, used to hash visitor IPs
+        SITE_URL         https://wearestillhere.uk       (used in email links)
+        RESEND_API_KEY   (Secret)  from https://resend.com        [email]
+        EMAIL_FROM       We Are Still Here <noreply@wearestillhere.uk>   [email]
+        NOTIFY_EMAIL     wash.team.info@gmail.com   (new contact messages are forwarded here)
+        CONTACT_RECEIPT  1   (optional: auto-reply "we received your message" to visitors)
+   5. Deploy, then test on the *.pages.dev address first (checklist G).
+
+   Email setup (Resend): add the domain wearestillhere.uk in Resend, add the DNS records it shows
+   (SPF/DKIM) in Cloudflare DNS, wait until it says Verified. EMAIL_FROM must use that domain.
+
+D) Domain
+   1. Custom domains > add wearestillhere.uk and www.wearestillhere.uk
+   2. Rules > Redirect Rules: www.wearestillhere.uk/* -> https://wearestillhere.uk/${1} (301)
+   3. SSL/TLS: Full (strict); Always Use HTTPS: On
+
+E) Extra protection
+   1. Zero Trust > Access > Applications > Self-hosted: wearestillhere.uk/admin  -> your email only
+      (also add /api/admin/* to the same application)
+   2. Security > WAF > Rate limiting rules (extra layer on top of the built-in limits):
+        URI path starts with /api/admin/login     10 requests / 10 min / IP -> Block
+        URI path in /api/contact, /api/newsletter  20 requests / hour / IP -> Block
+   3. Security > Bots: Bot Fight Mode On
+
+F) Search engines
+   Google Search Console: add the domain, submit https://wearestillhere.uk/sitemap.xml
+
+G) Post-deploy checklist
+   - Pages load; English default; AR toggle works
+   - Contact form: success message; message appears in /admin; email arrives (if configured)
+   - Newsletter: confirmation email arrives, link activates, welcome email, unsubscribe link works
+   - /admin: sign in, mark a message read, publish a news post and see it on /news
+   - Send a test newsletter to yourself from /admin before sending to subscribers
+   - 404 for: /package.json /migrations/0001_init.sql /functions/api/x /src/input.css /wrangler.toml
+   - DevTools Console: no CSP errors
+
+Local development
+   1. cp .dev.vars.example .dev.vars
+   2. npm run db:migrate:local
+   3. ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-long-password' npm run admin:create
+      (or run without the variables to be prompted)
+   4. npm run dev        -> http://127.0.0.1:8788   (EMAIL_DRY_RUN=1 prints emails to the console)
+   Local data lives in .wrangler/ (git-ignored). Delete that folder to start over.

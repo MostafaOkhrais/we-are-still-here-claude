@@ -1,9 +1,8 @@
-﻿
-# secrets & local only
+﻿# secrets & local only
 .env
 .env.*
 !.env.example
-api.php
+.dev.vars
 # archives - never commit
 *.zip
 *.rar
@@ -11,13 +10,11 @@ api.php
 *.log
 npm-debug.log*
 node_modules/
-.vercel/
-supabase/.temp/
+.wrangler/
 .DS_Store
 Thumbs.db
 coverage/
 dist/
-
 
 # docs - keep repo clean (allow README)
 *.md
