@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-title-ar="تواصل معنا — باقون | We Are Still Here" data-title-en="Contact — We Are Still Here | Baqoun">
+<html lang="en" dir="ltr" data-url-lang data-title-ar="تواصل معنا — باقون | We Are Still Here" data-title-en="Contact — We Are Still Here | Baqoun">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<script src="/js/lang-init.js?v=20261038"></script>
+<script src="/js/lang-init.js?v=20261040"></script>
 <meta name="google-site-verification" content="SxXRoXKBKzcJDUv7nZQZGLAdc99sD86745azFdv3l8E" />
 <title>Contact — We Are Still Here | Baqoun</title>
 <meta name="description" content="Contact form, official email, WhatsApp and social links for We Are Still Here | Baqoun.">
 <link rel="canonical" href="https://wearestillhere.uk/contact">
+<link rel="alternate" hreflang="en" href="https://wearestillhere.uk/contact">
+<link rel="alternate" hreflang="ar" href="https://wearestillhere.uk/ar/contact">
+<link rel="alternate" hreflang="x-default" href="https://wearestillhere.uk/contact">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="We Are Still Here | Baqoun">
@@ -32,12 +35,12 @@
 <meta name="theme-color" content="#3A4D2A">
 <link rel="preload" href="/assets/fonts/inter/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter/Inter-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261038">
-<link rel="stylesheet" href="/css/tailwind.css?v=20261038">
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261040">
+<link rel="stylesheet" href="/css/tailwind.css?v=20261040">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://wearestillhere.uk/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://wearestillhere.uk/contact"}]}</script>
 </head>
 <body class="bg-cream text-ink antialiased">
-<a href="#main" data-ar="انتقل إلى المحتوى الرئيسي" data-en="Skip to main content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-[100] focus:bg-white focus:text-ink focus:px-5 focus:py-3 focus:rounded-xl focus:shadow-card focus:font-bold">Skip to main content</a>
+<a href="#main" data-ar="انتقل إلى المحتوى الرئيسي" data-en="Skip to main content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-[100] focus:bg-white focus:text-ink focus:px-5 focus:py-3 focus:rounded-xl focus:shadow-card focus:font-bold focus:outline-none focus:ring-2 focus:ring-olive">Skip to main content</a>
 <header class="site-header sticky top-0 z-40 bg-cream/80 glass border-b border-cream-line">
   <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center gap-3 h-[64px] lg:h-[72px]">
@@ -79,23 +82,23 @@
             <div class="grid sm:grid-cols-2 gap-4">
               <label class="block">
                 <span class="block text-xs font-bold mb-1.5" data-ar="الاسم" data-en="Name">Name</span>
-                <input id="f-name" required name="name" maxlength="120" autocomplete="name" data-ar-ph="الاسم الكامل" data-en-ph="Full name" placeholder="Full name" aria-describedby="err-name" class="w-full px-4 py-3 rounded-xl border border-cream-line bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+                <input id="f-name" required name="name" maxlength="120" autocomplete="name" data-ar-ph="الاسم الكامل" data-en-ph="Full name" placeholder="Full name" aria-describedby="err-name" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
                 <span class="field-error hidden mt-1 block" id="err-name" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
               </label>
               <label class="block">
                 <span class="block text-xs font-bold mb-1.5" data-ar="البريد الإلكتروني" data-en="Email">Email</span>
-                <input id="f-email" required type="email" name="email" maxlength="254" autocomplete="email" dir="ltr" data-ar-ph="البريد الإلكتروني" data-en-ph="Email address" placeholder="Email address" aria-describedby="err-email" class="w-full px-4 py-3 rounded-xl border border-cream-line bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+                <input id="f-email" required type="email" name="email" maxlength="254" autocomplete="email" dir="ltr" data-ar-ph="البريد الإلكتروني" data-en-ph="Email address" placeholder="Email address" aria-describedby="err-email" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
                 <span class="field-error hidden mt-1 block" id="err-email" role="alert" data-ar="يرجى إدخال بريد إلكتروني صالح" data-en="Please enter a valid email address">Please enter a valid email address</span>
               </label>
             </div>
             <label class="block">
               <span class="block text-xs font-bold mb-1.5" data-ar="الموضوع" data-en="Subject">Subject</span>
-              <input id="f-subject" required name="subject" maxlength="200" autocomplete="off" data-ar-ph="موضوع الرسالة" data-en-ph="Message subject" placeholder="Message subject" aria-describedby="err-subject" class="w-full px-4 py-3 rounded-xl border border-cream-line bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+              <input id="f-subject" required name="subject" maxlength="200" autocomplete="off" data-ar-ph="موضوع الرسالة" data-en-ph="Message subject" placeholder="Message subject" aria-describedby="err-subject" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
               <span class="field-error hidden mt-1 block" id="err-subject" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
             </label>
             <label class="block">
               <span class="block text-xs font-bold mb-1.5" data-ar="الرسالة" data-en="Message">Message</span>
-              <textarea id="f-message" required name="message" maxlength="5000" data-ar-ph="اكتب رسالتك هنا…" data-en-ph="Write your message here…" placeholder="Write your message here…" aria-describedby="err-message" rows="5" class="w-full px-4 py-3 rounded-xl border border-cream-line bg-white text-sm placeholder:text-ink-muted focus:border-olive transition resize-y min-h-[130px]"></textarea>
+              <textarea id="f-message" required name="message" maxlength="5000" data-ar-ph="اكتب رسالتك هنا…" data-en-ph="Write your message here…" placeholder="Write your message here…" aria-describedby="err-message" rows="5" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition resize-y min-h-[130px]"></textarea>
               <span class="field-error hidden mt-1 block" id="err-message" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
             </label>
             <label class="hp" aria-hidden="true"><span>website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -181,15 +184,17 @@
       <div>
         <h4 class="font-bold text-white mb-1" data-ar="النشرة البريدية" data-en="Newsletter">Newsletter</h4>
         <p class="text-sm text-[#CFCABB] mb-4" data-ar="اشترك لتصلك آخر أخبار البرامج والفعاليات." data-en="Subscribe to receive updates on our programmes and events.">Subscribe to receive updates on our programmes and events.</p>
-        <form class="newsletter space-y-3" novalidate>
+        <form class="newsletter space-y-3" method="post" novalidate>
           <label class="block">
             <span class="sr-only" data-ar="البريد الإلكتروني" data-en="Email address">Email address</span>
-            <input type="email" name="email" required maxlength="254" autocomplete="email" dir="ltr" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 placeholder:text-white/40 text-white text-sm focus:outline-none focus:border-gold focus:bg-white focus:text-ink focus:placeholder:text-ink-muted transition">
+            <input type="email" name="email" required maxlength="254" autocomplete="email" dir="ltr" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/50 placeholder:text-white/70 text-white text-sm focus:outline-none focus:border-gold focus:bg-white focus:text-ink focus:placeholder:text-ink-muted transition">
           </label>
           <label class="hp" aria-hidden="true"><span>website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
           <button type="submit" class="w-full bg-gold hover:bg-gold-dark text-ink hover:text-ink font-extrabold py-3 rounded-full text-sm transition" data-ar="اشترك" data-en="Subscribe">Subscribe</button>
+          <p class="text-xs leading-5 text-[#CFCABB]"><span data-ar="بالاشتراك توافق على استخدام بريدك الإلكتروني لإرسال النشرة، ويمكنك إلغاء الاشتراك في أي وقت. التفاصيل في" data-en="By subscribing you agree that we may use your email address to send the newsletter. You can unsubscribe at any time. Details in our">By subscribing you agree that we may use your email address to send the newsletter. You can unsubscribe at any time. Details in our</span> <a href="/privacy" class="text-gold underline underline-offset-2 hover:text-white" data-ar="سياسة الخصوصية" data-en="Privacy Policy">Privacy Policy</a><span>.</span></p>
           <p class="nl-status text-sm font-bold hidden" role="status" aria-live="polite"></p>
         </form>
+        <noscript><p class="text-sm text-[#CFCABB]">To subscribe, please turn on JavaScript or email us at <a href="mailto:info@wearestillhere.uk" class="text-gold underline">info@wearestillhere.uk</a>.</p></noscript>
       </div>
     </div>
   </div>
@@ -200,6 +205,6 @@
     </div>
   </div>
 </footer>
-<script src="/js/app-config.js?v=20261038" charset="utf-8"></script><script src="/js/main.js?v=20261038" charset="utf-8"></script><script src="/js/newsletter.js?v=20261038" charset="utf-8"></script><script src="/js/contact-form.js?v=20261038" charset="utf-8"></script>
+<script src="/js/app-config.js?v=20261040" charset="utf-8"></script><script src="/js/main.js?v=20261040" charset="utf-8"></script><script src="/js/newsletter.js?v=20261040" charset="utf-8"></script><script src="/js/contact-form.js?v=20261040" charset="utf-8"></script>
 </body>
 </html>

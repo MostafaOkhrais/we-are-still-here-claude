@@ -313,6 +313,8 @@
     need: {ar: 'أدخل الموضوع والنص.', en: 'Enter a subject and a message.'},
     disabled: {ar: 'البريد غير مُعدّ على الخادم (RESEND_API_KEY).', en: 'Email is not configured on the server (RESEND_API_KEY).'},
     none: {ar: 'لا يوجد مشتركون نشطون في هذه الفئة.', en: 'There are no active subscribers in this audience.'},
+    many: {ar: 'عدد المشتركين في هذه الفئة يتجاوز 2000. أرسل لكل لغة على حدة أو قسّم الحملة.', en: 'This audience has more than 2000 subscribers. Send to one language at a time or split the campaign.'},
+    dup: {ar: 'أُرسلت الرسالة نفسها قبل أقل من 10 دقائق. لم يُرسل شيء مرة ثانية.', en: 'This exact message was sent less than 10 minutes ago. Nothing was sent again.'},
     arm: {ar: 'اضغط مرة أخرى لإرسال النشرة للمشتركين', en: 'Click again to send to all subscribers'},
     fail: {ar: 'تعذّر الإرسال.', en: 'Sending failed.'}
   };
@@ -347,7 +349,8 @@
         if(!test){ $('c-subject').value = ''; $('c-body').value = ''; loadCampaigns(); }
       })
       .catch(authOr(function(e){
-        showSt('camp-status', 'err', e.code === 'email_disabled' ? ct('disabled') : e.code === 'no_recipients' ? ct('none') : e.code === 'rate_limited' ? t('rate') : ct('fail'));
+        var msg = {email_disabled: ct('disabled'), no_recipients: ct('none'), too_many_recipients: ct('many'), duplicate_campaign: ct('dup'), rate_limited: t('rate')}[e.code];
+        showSt('camp-status', 'err', msg || ct('fail'));
       }))
       .then(function(){ btn.disabled = !emailOn; });
   }

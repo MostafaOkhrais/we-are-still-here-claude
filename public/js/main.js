@@ -1,7 +1,27 @@
 (function(){
   var KEY='wash-lang-v2';
-  function initial(){ try{var q=null; try{q=new URLSearchParams(window.location.search).get('lang');}catch(e){} if(q==='ar'||q==='en') return q; return localStorage.getItem(KEY)||'en';}catch(e){return 'en';} }
+  // Pages with their own English and Arabic URLs carry data-url-lang: the language is the page's, and the toggle opens the other page.
+  var URL_LANG = document.documentElement.hasAttribute('data-url-lang');
+  function initial(){
+    if(URL_LANG) return document.documentElement.lang==='ar'?'ar':'en';
+    try{var q=null; try{q=new URLSearchParams(window.location.search).get('lang');}catch(e){} if(q==='ar'||q==='en') return q; return localStorage.getItem(KEY)||'en';}catch(e){return 'en';}
+  }
   function current(){ return document.documentElement.lang==='ar'?'ar':'en'; }
+  // /about <-> /ar/about, / <-> /ar/ (query and hash are kept)
+  function pairUrl(){
+    var p=window.location.pathname, onAr=/^\/ar(\/|$)/.test(p);
+    var path = onAr ? (p.replace(/^\/ar/,'')||'/') : '/ar'+(p==='/'?'/':p);
+    return path+window.location.search+window.location.hash;
+  }
+  // Pages without a pair (404, subscription, admin) switch in place, so their internal links follow the language.
+  function localiseLinks(lang){
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var h=a.getAttribute('data-href')||a.getAttribute('href');
+      if(!/^\/(about|shop|team|news|contact|privacy)?$/.test(h)) return;
+      a.setAttribute('data-href',h);
+      a.setAttribute('href', lang==='ar' ? '/ar'+(h==='/'?'/':h) : h);
+    });
+  }
   function apply(lang, initial){
     document.documentElement.lang = lang==='ar'?'ar':'en';
     document.documentElement.dir = lang==='ar'?'rtl':'ltr';
@@ -35,6 +55,7 @@
       var open = links.id === 'main-nav-mobile' ? !links.classList.contains('hidden') : links.classList.contains('open');
       menu.setAttribute('aria-label',open?(lang==='ar'?'\u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0642\u0627\u0626\u0645\u0629':'Close menu'):(lang==='ar'?'\u0641\u062a\u062d \u0627\u0644\u0642\u0627\u0626\u0645\u0629':'Open menu'));
     }
+    if(!URL_LANG) localiseLinks(lang);
     try{localStorage.setItem(KEY,lang);}catch(e){}
   }
   window.WASH_setLang=function(lang){apply(lang);};
@@ -100,7 +121,13 @@
     initReveal();
     apply(initial(), true);
     document.querySelectorAll('.lang-toggle').forEach(function(b){
-      b.addEventListener('click',function(){ apply(current()==='ar'?'en':'ar'); });
+      b.addEventListener('click',function(){
+        var next=current()==='ar'?'en':'ar';
+        if(URL_LANG){
+          try{localStorage.setItem(KEY,next);}catch(e){}
+          window.location.href=pairUrl();
+        } else apply(next);
+      });
     });
 
     var menu=document.querySelector('.menu-btn');
@@ -168,6 +195,7 @@
         var toTop=document.createElement('button');
     toTop.className='to-top';
     toTop.setAttribute('type','button');
+    toTop.setAttribute('aria-label', current()==='ar'?'العودة إلى الأعلى':'Back to top');
     var NS='http://www.w3.org/2000/svg';
     var ring=document.createElementNS(NS,'svg');
     ring.setAttribute('class','progress-ring');

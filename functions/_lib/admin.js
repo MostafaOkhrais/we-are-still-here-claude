@@ -7,7 +7,8 @@ import {
 import { emailEnabled, sendBatch, campaignEmail, unsubscribeHeaders } from './email.js';
 
 const SESSION_TTL = 12 * 3600;
-const MAX_RECIPIENTS = 4500; // stays under the Workers subrequest limit (batches of 100)
+const MAX_RECIPIENTS = 2000; // 20 batches of 100: stays under the 50-subrequest limit of the Workers free plan
+const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
 
 function secure(request) {
   return new URL(request.url).protocol === 'https:';
@@ -259,7 +260,6 @@ export async function sendCampaign(context) {
   const admin = await requireAdmin(context);
   const { request, env } = context;
   if (!emailEnabled(env)) throw new HttpError(400, 'email_disabled');
-  if (!(await rateLimit(env, 'campaign:' + admin.id, 5, 3600))) throw new HttpError(429, 'rate_limited');
 
   const b = await readJson(request, 100000);
   const subject = cleanLine(b.subject, 150);
@@ -276,14 +276,30 @@ export async function sendCampaign(context) {
   };
 
   if (b.test) {
+    if (!(await rateLimit(env, 'campaign-test:' + admin.id, 20, 3600))) throw new HttpError(429, 'rate_limited');
     const res = await sendBatch(env, [build({ email: admin.email, lang: 'en', unsub_token: 'test' })]);
     return json(res.ok ? 200 : 502, res.ok ? { ok: true, sent: 1, test: true } : { error: 'send_failed' });
   }
+  if (!(await rateLimit(env, 'campaign:' + admin.id, 5, 3600))) throw new HttpError(429, 'rate_limited');
 
-  const sql = "SELECT email, lang, unsub_token FROM subscribers WHERE status = 'active'" + (audience === 'all' ? '' : ' AND lang = ?1') + ' ORDER BY id LIMIT ' + MAX_RECIPIENTS;
-  const stmt = audience === 'all' ? env.DB.prepare(sql) : env.DB.prepare(sql).bind(audience);
-  const { results } = await stmt.all();
-  if (!results.length) throw new HttpError(400, 'no_recipients');
+  // Refuse instead of silently leaving the later subscribers out.
+  const where = "status = 'active'" + (audience === 'all' ? '' : ' AND lang = ?1');
+  const countStmt = env.DB.prepare('SELECT COUNT(*) AS n FROM subscribers WHERE ' + where);
+  const { n } = await (audience === 'all' ? countStmt : countStmt.bind(audience)).first();
+  if (!n) throw new HttpError(400, 'no_recipients');
+  if (n > MAX_RECIPIENTS) return json(409, { error: 'too_many_recipients', count: n, max: MAX_RECIPIENTS });
+
+  // A double click or a retry after a timeout must not mail everyone twice.
+  const since = new Date(Date.now() - DUPLICATE_WINDOW_MS).toISOString();
+  const dup = await env.DB.prepare('SELECT id FROM campaigns WHERE subject = ?1 AND body = ?2 AND created_at > ?3').bind(subject, body, since).first();
+  if (dup) throw new HttpError(409, 'duplicate_campaign');
+
+  const listStmt = env.DB.prepare('SELECT email, lang, unsub_token FROM subscribers WHERE ' + where + ' ORDER BY id');
+  const { results } = await (audience === 'all' ? listStmt : listStmt.bind(audience)).all();
+
+  // Recorded before sending, so an interrupted send still leaves a trace and blocks an immediate repeat.
+  const { id } = await env.DB.prepare('INSERT INTO campaigns (subject, body, sent_count, failed_count, created_by, created_at) VALUES (?1, ?2, 0, 0, ?3, ?4) RETURNING id')
+    .bind(subject, body, admin.email, nowIso()).first();
 
   let sent = 0;
   let failed = 0;
@@ -293,7 +309,7 @@ export async function sendCampaign(context) {
     if (res.ok) sent += chunk.length;
     else failed += chunk.length;
   }
-  await env.DB.prepare('INSERT INTO campaigns (subject, body, sent_count, failed_count, created_by, created_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)')
-    .bind(subject, body, sent, failed, admin.email, nowIso()).run();
+  await env.DB.prepare('UPDATE campaigns SET sent_count = ?1, failed_count = ?2 WHERE id = ?3').bind(sent, failed, id).run();
+  if (!sent) return json(502, { error: 'send_failed', sent, failed });
   return json(200, { ok: true, sent, failed });
 }

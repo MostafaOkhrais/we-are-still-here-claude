@@ -17,8 +17,13 @@ What the backend does
   - Admin -> own sign-in (PBKDF2 passwords, HttpOnly SameSite=Strict session cookie, CSRF checks,
     failed-login throttling). Add Cloudflare Access on top (step E) for a second lock.
   - Abuse protection: per-IP rate limits (D1), honeypot + timing check, link limit, body limits.
-  Without RESEND_API_KEY everything still works, but no email is sent: newsletter sign-ups become
-  active immediately (no confirmation) and the "send newsletter" button is disabled.
+  IP_SALT is required: without it the contact form, newsletter and admin sign-in answer with an error
+  (the server refuses to hash visitor IPs with a public default).
+  Without RESEND_API_KEY the site still works, but the newsletter form answers "try again later"
+  (every address must confirm by email), contact messages are only stored, and the "send newsletter"
+  button is disabled. Set RESEND_API_KEY before announcing the newsletter.
+  Campaigns are limited to 2000 subscribers per send (use the language audience to split a larger list),
+  and the same subject and text cannot be sent twice within 10 minutes.
 
 A) One-time Cloudflare setup (dashboard / terminal)
    0. Node 20 is pinned in .node-version (Cloudflare Pages reads it).
@@ -31,7 +36,11 @@ A) One-time Cloudflare setup (dashboard / terminal)
                                             run again any time to reset a password)
 
 B) Push to GitHub
-   1. npm run build                       (writes public/css/tailwind.css; commit it)
+   1. npm run build                       (writes public/css/tailwind.css, the Arabic pages public/ar/*.html and
+                                           public/sitemap.xml; commit them. Edit the English pages in public/,
+                                           never public/ar/, then run the build again.)
+      Every page has an English URL (/about) and an Arabic URL (/ar/about) with hreflang links; the AR/EN
+      button opens the other one. Newsletter links in emails open a page with a confirm button.
    2. git add -A ; git status             (.dev.vars, node_modules, .wrangler must NOT appear)
    3. git commit ; git push origin main
 

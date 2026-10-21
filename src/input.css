@@ -55,7 +55,7 @@ html[dir="rtl"] .scroll-progress { background: linear-gradient(-90deg, #3A4D2A, 
 /* Visible keyboard focus everywhere */
 a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible { outline: 3px solid #3A4D2A; outline-offset: 2px; }
 input:focus-visible, textarea:focus-visible { outline: 3px solid #3A4D2A; outline-offset: 2px; border-color: #3A4D2A; }
-.bg-footer a:focus-visible, .bg-olive a:focus-visible, .bg-olive button:focus-visible { outline-color: #C9B48A; }
+footer a:focus-visible, footer button:focus-visible, .bg-olive a:focus-visible, .bg-olive button:focus-visible { outline-color: #C9B48A; }
 
 /* Forms */
 .field-error { color: #a93226; font-size: 11px; font-weight: 700; }
@@ -97,3 +97,15 @@ footer a, footer a.inline-flex, footer a.flex { display: inline-flex; align-item
 .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; min-height: 44px; border-radius: 9999px; transition: background-color .2s, color .2s, transform .2s; }
 .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
 .social-btn:hover { transform: translateY(-2px); }
+
+/* Links inside a sentence keep the text flow (inline links are exempt from the target-size rule) */
+footer p a { display: inline; min-height: 0; }
+
+/* Arabic letters join: letter-spacing pulls them apart */
+html[lang="ar"] * { letter-spacing: 0 !important; }
+
+/* Without JavaScript the newsletter form cannot work: hide it and show the note beside it */
+html:not(.js-enabled) form.newsletter { display: none; }
+
+/* Open mobile menu scrolls inside the screen (the page behind it is locked) */
+#main-nav-mobile { max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; }

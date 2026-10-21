@@ -10,6 +10,7 @@ const ROUTES = [
   ['POST', /^contact$/, pub.contact],
   ['POST', /^newsletter$/, pub.subscribe],
   ['GET', /^newsletter\/confirm$/, pub.confirm],
+  ['POST', /^newsletter\/confirm$/, pub.confirm],
   ['GET', /^newsletter\/unsubscribe$/, pub.unsubscribe],
   ['POST', /^newsletter\/unsubscribe$/, pub.unsubscribe],
   ['GET', /^news$/, pub.news],

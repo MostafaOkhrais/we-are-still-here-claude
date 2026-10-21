@@ -108,9 +108,17 @@ export function clientIp(request) {
   return request.headers.get('cf-connecting-ip') || '';
 }
 
-// Cloudflare always sets CF-Connecting-IP. If it is missing (local dev) everyone shares one bucket: fail closed.
+// Without the secret the hashes could be reversed from a database dump, so refuse to run (fail closed).
+// Cloudflare always sets CF-Connecting-IP; when it is missing (local dev) everyone shares one bucket.
 export async function ipHash(request, env) {
-  return sha256Hex((env.IP_SALT || 'wash-default-salt') + ':' + (clientIp(request) || 'unknown'));
+  if (!env.IP_SALT) throw new HttpError(500, 'server_misconfigured');
+  return sha256Hex(env.IP_SALT + ':' + (clientIp(request) || 'unknown'));
+}
+
+// Keyed hash of an email address, used as a rate-limit key so the address itself is never stored there.
+export async function emailHash(env, email) {
+  if (!env.IP_SALT) throw new HttpError(500, 'server_misconfigured');
+  return sha256Hex(env.IP_SALT + ':addr:' + email);
 }
 
 export function siteUrl(request, env) {

@@ -4,6 +4,8 @@
   root.classList.add('js-enabled');
   // If main.js never initialises the reveal animation, show content anyway.
   setTimeout(function(){ if(!root.classList.contains('reveal-ready')) root.classList.remove('js-enabled'); }, 3000);
+  // The English and Arabic pages each have their own URL (/about and /ar/about) and their markup already carries the language.
+  if(root.hasAttribute('data-url-lang')) return;
   try{
     var q = null;
     try{ q = new URLSearchParams(window.location.search).get('lang'); }catch(e){}

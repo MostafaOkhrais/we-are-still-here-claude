@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "build:css": "tailwindcss -c tailwind.config.cjs -i src/input.css -o public/css/tailwind.css --minify",
-    "build": "npm run build:css",
-    "dev": "npm run build:css && wrangler pages dev public",
+    "build:ar": "node scripts/build-ar.mjs",
+    "build": "npm run build:ar && npm run build:css",
+    "dev": "npm run build && wrangler pages dev public",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "admin:create": "node scripts/create-admin.mjs"
