@@ -45,6 +45,15 @@ B) Push to GitHub
    3. git commit ; git push origin main
 
 C) Pages project
+   HOW THIS SITE WAS DEPLOYED: the dashboard "Connect to Git" flow now creates a Workers project (its deploy
+   command "npx wrangler deploy" fails for this site), so the Pages project was created and published from the
+   terminal. The project is called we-are-still-here (https://we-are-still-here.pages.dev):
+      npx wrangler pages project create we-are-still-here --production-branch main
+      npx wrangler pages secret put IP_SALT --project-name we-are-still-here     (also SITE_URL, RESEND_API_KEY)
+      npm run deploy                         (builds, then publishes public/ and functions/)
+   To publish a change: edit, then run  npm run deploy  (and push to GitHub for the record).
+   A direct-upload Pages project is not deployed by GitHub pushes. To get that later, create a new Pages project
+   with "Connect to Git" (look for "Looking to deploy Pages? Get started") using the settings in steps 2-4.
    1. Workers & Pages > Create > Pages > Connect to Git > this repository
    2. Framework preset: None | Build command: npm run build | Build output directory: public
    3. The D1 database comes from wrangler.toml (binding DB, once you pasted the real database_id in step A3).

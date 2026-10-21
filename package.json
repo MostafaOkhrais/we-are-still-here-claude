@@ -7,6 +7,7 @@
     "build:ar": "node scripts/build-ar.mjs",
     "build": "npm run build:ar && npm run build:css",
     "dev": "npm run build && wrangler pages dev public",
+    "deploy": "npm run build && wrangler pages deploy public --project-name we-are-still-here --branch main",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "admin:create": "node scripts/create-admin.mjs"
