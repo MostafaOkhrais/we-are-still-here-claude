@@ -7,7 +7,7 @@ pages_build_output_dir = "./public"
 [[d1_databases]]
 binding = "DB"
 database_name = "wash-db"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "20066569-a84d-4caa-875b-5c37ce2160f2"
 migrations_dir = "migrations"
 
 # Public settings (not secrets). With a Wrangler file in the project, Cloudflare Pages reads settings from
