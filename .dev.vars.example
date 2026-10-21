@@ -1,11 +1,11 @@
 # Copy to .dev.vars for local development (.dev.vars is git-ignored). Production values go in
-# Cloudflare Pages > Settings > Variables and Secrets.
+# wrangler.toml [vars] (EMAIL_FROM, NOTIFY_EMAIL) and Cloudflare Pages secrets (IP_SALT, RESEND_API_KEY, SITE_URL).
 
 # Random string used to hash visitor IPs before they are stored (any long random value).
 IP_SALT=change-me-long-random-string
 
-# Public site URL used in email links (leave unset locally).
-# SITE_URL=https://wearestillhere.uk
+# Public site URL used in email links (production sets it as a Pages secret; locally the link points at this server).
+SITE_URL=http://127.0.0.1:8788
 
 # --- Email (optional) ---
 # Log emails to the console instead of sending (local testing of the newsletter confirmation flow).

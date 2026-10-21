@@ -9,3 +9,11 @@ binding = "DB"
 database_name = "wash-db"
 database_id = "00000000-0000-0000-0000-000000000000"
 migrations_dir = "migrations"
+
+# Public settings (not secrets). With a Wrangler file in the project, Cloudflare Pages reads settings from
+# here, so they are kept in the repository. IP_SALT, RESEND_API_KEY and SITE_URL are set as Pages secrets instead
+# (SITE_URL is not secret, but a value here would also be used by local development): see DEPLOY-CLOUDFLARE.txt.
+[vars]
+EMAIL_FROM = "We Are Still Here <noreply@wearestillhere.uk>"
+NOTIFY_EMAIL = "info@wearestillhere.uk"
+# CONTACT_RECEIPT = "1"   # uncomment to send visitors an automatic "we received your message" email

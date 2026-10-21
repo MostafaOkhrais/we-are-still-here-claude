@@ -47,14 +47,16 @@ B) Push to GitHub
 C) Pages project
    1. Workers & Pages > Create > Pages > Connect to Git > this repository
    2. Framework preset: None | Build command: npm run build | Build output directory: public
-   3. Settings > Bindings > Add > D1 database: variable name  DB  -> database  wash-db   (Production)
-   4. Settings > Variables and Secrets (Production):
-        IP_SALT          (Secret)  long random string, used to hash visitor IPs
+   3. The D1 database comes from wrangler.toml (binding DB, once you pasted the real database_id in step A3).
+      Pages then shows it as read-only in Settings > Bindings. Do not add a second binding by hand.
+   4. Settings > Variables and Secrets > Production, add these as type "Secret" (Encrypt):
+        IP_SALT          long random string (required; the site refuses to run without it). Create one with:
+                         node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
         SITE_URL         https://wearestillhere.uk       (used in email links)
-        RESEND_API_KEY   (Secret)  from https://resend.com        [email]
-        EMAIL_FROM       We Are Still Here <noreply@wearestillhere.uk>   [email]
-        NOTIFY_EMAIL     info@wearestillhere.uk   (new contact messages are forwarded here)
-        CONTACT_RECEIPT  1   (optional: auto-reply "we received your message" to visitors)
+        RESEND_API_KEY   from https://resend.com        [email; without it the newsletter form says "try again later"]
+      EMAIL_FROM and NOTIFY_EMAIL are public settings kept in wrangler.toml [vars]; edit them there.
+      CONTACT_RECEIPT = "1" in wrangler.toml [vars] turns on the automatic "we received your message" reply.
+      Secrets are used by the NEXT deployment: after adding them press Deployments > Retry deployment (or push).
    5. Deploy, then test on the *.pages.dev address first (checklist G).
 
    Mailbox for info@wearestillhere.uk (shown on the site, used for NOTIFY_EMAIL):
@@ -78,6 +80,17 @@ E) Extra protection
         URI path starts with /api/admin/login     10 requests / 10 min / IP -> Block
         URI path in /api/contact, /api/newsletter  20 requests / hour / IP -> Block
    3. Security > Bots: Bot Fight Mode On
+   4. Speed > Optimization: Rocket Loader OFF (it injects scripts and the strict Content-Security-Policy blocks them).
+      Scrape Shield: Email Address Obfuscation OFF (the site shows info@wearestillhere.uk as plain text).
+      Do not enable Web Analytics for this project (the privacy policy says there is no analytics).
+   5. SSL/TLS > Edge Certificates: Minimum TLS 1.2, Automatic HTTPS Rewrites On. DNS > Settings: DNSSEC On
+      (then add the DS record at the .uk registrar).
+   6. Pages project > Settings > General > Access policy: protect preview deployments (*.pages.dev) so test
+      versions are not public or indexed.
+   7. Turn on two-step verification for the Cloudflare, GitHub, Resend and Google accounts.
+   8. Email routing warning: before enabling Email Routing check DNS > Records for existing MX records. If the
+      domain already has mailboxes (Google Workspace, Zoho...), do NOT enable it (it replaces the MX records);
+      create the info@ address inside that mail service instead.
 
 F) Search engines (do after the domain is live)
    1. Google Search Console > Add property > "Domain" wearestillhere.uk > add the TXT record it shows in
@@ -92,7 +105,7 @@ F) Search engines (do after the domain is live)
    7. Structured data: run https://search.google.com/test/rich-results on the home page (Organization).
    SEO already in place: one canonical URL per page, unique titles and descriptions, Open Graph and
    Twitter cards with a 1200x630 image, JSON-LD (Organization, WebSite, BreadcrumbList), sitemap.xml,
-   robots.txt (blocks /admin, /api, /subscription), noindex on admin / 404 / subscription pages,
+   robots.txt (blocks /admin and /api; /subscription stays crawlable so its noindex is read), noindex on admin / 404 / subscription pages,
    favicon + Apple touch icon + web manifest, security.txt.
 
 G) Post-deploy checklist
