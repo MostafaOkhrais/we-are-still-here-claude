@@ -1,0 +1,37 @@
+# We Are Still Here | Baqoun (باقون)
+
+> A Palestinian student-led initiative supporting and empowering university students in Gaza. Founded in April 2024 by Professor Zahid Pranjol, it offers educational programmes, student support and financial assistance, literary and artistic projects, and academic and community partnerships. The team is around 50 members and volunteers in Gaza and the United Kingdom.
+
+The website is available in English and Arabic. Each Arabic page has its own URL under /ar/.
+
+## Pages (English)
+
+- [We Are Still Here | Baqoun — Supporting Gaza's Students](https://wearestillhere.uk/): A Palestinian student-led initiative supporting and empowering university students in Gaza through education, student support, culture and partnerships.
+- [About and Programmes — We Are Still Here | Baqoun](https://wearestillhere.uk/about): The story of We Are Still Here | Baqoun, from voluntary academic support in 2024 to a student-led initiative: vision, mission, values, four programmes and partners.
+- [Shop — We Are Still Here | Baqoun](https://wearestillhere.uk/shop): Teemill art prints, tote bags, cards and sweaters, plus two books published by Daraja Press. Proceeds support student programmes in Gaza.
+- [Team — We Are Still Here | Baqoun](https://wearestillhere.uk/team): Meet the team behind We Are Still Here | Baqoun: Palestinian field leadership in Gaza and volunteers in the UK, under the general supervision of the Founder.
+- [News and Events — We Are Still Here | Baqoun](https://wearestillhere.uk/news): News, programme updates and upcoming events from We Are Still Here | Baqoun, the student-led initiative supporting university students in Gaza.
+- [Contact — We Are Still Here | Baqoun](https://wearestillhere.uk/contact): Contact We Are Still Here | Baqoun by form, email (info@wearestillhere.uk), WhatsApp or social media. We aim to reply within 24 to 48 hours.
+- [Privacy Policy — We Are Still Here | Baqoun](https://wearestillhere.uk/privacy): How We Are Still Here | Baqoun collects, uses and protects personal data: the contact form, newsletter, cookies, and your rights.
+
+## الصفحات (العربية)
+
+- [باقون | We Are Still Here — مبادرة طلابية لدعم طلاب غزة](https://wearestillhere.uk/ar/): مبادرة طلابية فلسطينية تدعم طلاب الجامعات في غزة وتمكّنهم عبر التعليم والدعم الطلابي والثقافة والشراكات.
+- [عن المبادرة وبرامجها — باقون | We Are Still Here](https://wearestillhere.uk/ar/about): قصة مبادرة باقون: من الدعم الأكاديمي التطوعي عام 2024 إلى مبادرة طلابية ببرامجها الأربعة لطلاب الجامعات في غزة، مع الرؤية والرسالة والقيم والشراكات.
+- [المتجر — باقون | We Are Still Here](https://wearestillhere.uk/ar/shop): مطبوعات فنية وحقائب وبطاقات من Teemill وكتابان صادران عن دار Daraja Press. تدعم العائدات برامج الطلاب في غزة.
+- [الفريق — باقون | We Are Still Here](https://wearestillhere.uk/ar/team): تعرّف على فريق مبادرة باقون: قيادة ميدانية فلسطينية في غزة ومتطوعون في المملكة المتحدة، بإشراف المؤسس العام.
+- [الأخبار والفعاليات — باقون | We Are Still Here](https://wearestillhere.uk/ar/news): أخبار مبادرة باقون وتحديثات برامجها والفعاليات القادمة لدعم طلاب الجامعات في غزة.
+- [تواصل معنا — باقون | We Are Still Here](https://wearestillhere.uk/ar/contact): تواصل مع مبادرة باقون عبر نموذج التواصل أو البريد info@wearestillhere.uk أو واتساب أو منصات التواصل. نسعى إلى الرد خلال 24 إلى 48 ساعة.
+- [سياسة الخصوصية — باقون | We Are Still Here](https://wearestillhere.uk/ar/privacy): كيف تجمع مبادرة باقون بياناتك الشخصية وتستخدمها وتحميها: نموذج التواصل والنشرة البريدية وملفات الارتباط وحقوقك.
+
+## Support and contact
+
+- [Donate (Chuffed)](https://chuffed.org/project/we-are-still-here): fundraising page for student programmes.
+- [Teemill shop](https://we-are-still-here-students.teemill.com/): merchandise; proceeds support student programmes in Gaza.
+- [Books (Daraja Press)](https://darajapress.com/publication/we-are-still-here/): two published books.
+- Email: info@wearestillhere.uk
+
+## Optional
+
+- [Full text for AI systems](https://wearestillhere.uk/llms-full.txt): programmes, values, team, FAQ and product list in one file.
+- [Sitemap](https://wearestillhere.uk/sitemap.xml)

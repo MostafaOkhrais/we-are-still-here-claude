@@ -133,8 +133,9 @@ form.newsletter:not([data-ready]) { display: none; }
 .links-page #links-container > a:nth-child(4) { animation-delay: .40s; }
 .links-page #links-container > a:nth-child(5) { animation-delay: .48s; }
 .links-page #links-container > a:nth-child(6) { animation-delay: .56s; }
-.links-page .links-qr { animation-delay: .64s; }
-.links-page .links-foot { animation-delay: .72s; }
+.links-page #links-container > a:nth-child(7) { animation-delay: .64s; }
+.links-page .links-qr { animation-delay: .72s; }
+.links-page .links-foot { animation-delay: .80s; }
 
 /* Open mobile menu scrolls inside the screen (the page behind it is locked) */
 #main-nav-mobile { max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; }
