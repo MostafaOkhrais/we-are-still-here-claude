@@ -59,5 +59,6 @@
   if(host && data){
     host.textContent = '';
     data.forEach(function(d){ host.appendChild(section(d)); });
+    if(window.WASH_reveal) window.WASH_reveal(host.querySelectorAll('section > div:first-child'), 1);
   }
 })();

@@ -73,6 +73,7 @@
     var tabs = document.querySelector('.tabs');
     if(tabs){ tabs.hidden = cache.length === 0; tabs.classList.toggle('hidden', cache.length === 0); }
     rows.forEach(function(p){ list.appendChild(card(p)); });
+    if(window.WASH_reveal) window.WASH_reveal(list.children, 3);
   }
 
   function fail(){

@@ -60,33 +60,71 @@
   }
   window.WASH_setLang=function(lang){apply(lang);};
 
+  // ---- entrance animation ----
+  // One system for the whole site: elements fade up by 20px (opacity and transform only) in neighbour order,
+  // 80 ms apart, as they come into view. After the animation the class is removed, so hover effects behave normally.
+  var STEP = 0.08;
+  var revealIO = null;
+  function settle(el){
+    var done = false;
+    function finish(){
+      if(done) return; done = true;
+      el.classList.remove('reveal', 'visible');
+      el.style.removeProperty('--reveal-delay');
+    }
+    el.addEventListener('transitionend', function h(e){
+      if(e.target === el && e.propertyName === 'opacity'){ el.removeEventListener('transitionend', h); finish(); }
+    });
+    setTimeout(finish, 2000);
+  }
+  function show(el){ el.classList.add('visible'); settle(el); }
+  function track(el){
+    if(el.__washTracked) return; el.__washTracked = true;
+    if(revealIO) revealIO.observe(el); else show(el);
+  }
+  // Content that scripts build later (products, team members, news cards).
+  window.WASH_reveal = function(nodes, perRow){
+    Array.prototype.forEach.call(nodes, function(el, i){
+      el.classList.add('reveal');
+      el.style.setProperty('--reveal-delay', ((perRow ? i % perRow : Math.min(i, 5)) * STEP) + 's');
+      track(el);
+    });
+  };
+
   function initReveal(){
     document.documentElement.classList.add('reveal-ready');
-    var els=document.querySelectorAll(
-      'main .sec-title, main .sec-sub, main .card, main .stat-card, '+
-      'main .value-card, main .program-card, main .leader-card, '+
-      'main .area-card, main .member-card, main .product, main .note, '+
-      'main .reveal');
-
-    var seen = new Set();
-    els.forEach(function(el){
-      if(seen.has(el)) return; seen.add(el);
-      el.classList.add('reveal');
-      var sibs=Array.prototype.filter.call(el.parentElement.children,
-        function(c){return c.classList.contains('reveal');});
-      var i=sibs.indexOf(el);
-      el.style.setProperty('--reveal-delay',(Math.min(i,5)*0.07)+'s');
-    });
-    if(!('IntersectionObserver' in window)){
-      els.forEach(function(el){el.classList.add('visible');});
-      return;
+    if('IntersectionObserver' in window){
+      revealIO = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ revealIO.unobserve(en.target); show(en.target); }
+        });
+      }, {threshold: .1, rootMargin: '0px 0px -40px 0px'});
     }
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target);}
-      });
-    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-    els.forEach(function(el){io.observe(el);});
+    var list = [];
+    function add(sel){ document.querySelectorAll(sel).forEach(function(el){ if(list.indexOf(el) < 0) list.push(el); }); }
+    // home page hero: the text column in sequence, then the overview card
+    add('main > section:first-of-type > div.relative > .grid > div:first-child > *');
+    add('main > section:first-of-type > div.relative > .grid > div:last-child');
+    // cards and headings that carry a reveal class or a known component class
+    add('main .sec-title, main .sec-sub, main .card, main .stat-card, main .value-card, main .program-card, ' +
+        'main .leader-card, main .area-card, main .member-card, main .product, main .note, main .reveal');
+    // every other block directly inside a section container (page headings, text, forms, panels)
+    document.querySelectorAll('main > section > div > *').forEach(function(el){
+      if(list.indexOf(el) >= 0 || el.matches('.sr-only, noscript, script, style, [id$="-list"], [id$="-grid"], [id$="-sections"]')) return;
+      if(el.querySelector('.reveal') || el.closest('.reveal')) return;
+      if(list.some(function(x){ return x.contains(el) || el.contains(x); })) return;   // no animation inside another one
+      if(!el.children.length && !el.textContent.trim()) return;
+      list.push(el);
+    });
+    add('footer .grid > div');
+    list.forEach(function(el){
+      el.classList.add('reveal');
+      if(!el.style.getPropertyValue('--reveal-delay')){
+        var sibs = Array.prototype.filter.call(el.parentElement.children, function(c){ return c.classList.contains('reveal'); });
+        el.style.setProperty('--reveal-delay', (Math.min(sibs.indexOf(el), 5) * STEP) + 's');
+      }
+      track(el);
+    });
   }
 
   function initCounters(){

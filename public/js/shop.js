@@ -79,7 +79,6 @@
     c.appendChild(body);
     return c;
   }
-  var firstRender = true;
   function render(){
     var grid = document.getElementById("shop-grid");
     if(!grid || !window.WASH_SHOP) return;
@@ -95,10 +94,7 @@
       var v = lang === "ar" ? n.getAttribute("data-ar") : n.getAttribute("data-en");
       if(v != null) n.textContent = v;
     });
-    if(!firstRender){
-      grid.querySelectorAll(".reveal").forEach(function(n){ n.classList.add("visible"); });
-    }
-    firstRender = false;
+    if(window.WASH_reveal) window.WASH_reveal(grid.children, 4);
     document.querySelectorAll("#shop-tabs .tab").forEach(function(b){
       var on = b.getAttribute("data-filter") === filter;
       b.setAttribute("aria-pressed", on ? "true" : "false");

@@ -524,3 +524,7 @@ html[dir="ltr"] .scroll-progress{transform-origin:left center}
 .social-row .social-btn:hover{background:#fff;color:#1F2A18}
 /* Footer content keeps the same side gutter as the page */
 footer .container{padding-inline:var(--space-lg)}
+
+/* Same header entrance as the other pages (see src/input.css) */
+@keyframes enter-down{from{opacity:0;transform:translateY(-14px)}}
+.site-header{animation:enter-down .7s cubic-bezier(.16,1,.3,1) backwards}
