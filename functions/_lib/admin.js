@@ -1,7 +1,7 @@
 // Admin API: cookie sessions (HttpOnly, SameSite=Strict, hashed in D1), CSRF checks, CRUD, newsletter sending.
 
 import {
-  EMAIL_RE, HttpError, json, readJson, requireSameOrigin, rateLimit, rateExceeded, ipHash, siteUrl, randomToken, sha256Hex,
+  EMAIL_RE, HttpError, json, readJson, requireSameOrigin, rateLimit, ipHash, siteUrl, randomToken, sha256Hex,
   verifyPassword, DUMMY_HASH, cleanLine, cleanText, parseCookies, parseId, nowIso, nowSec,
 } from './util.js';
 import { emailEnabled, sendBatch, campaignEmail, unsubscribeHeaders } from './email.js';
@@ -54,17 +54,14 @@ export async function login(context) {
   const email = cleanLine(b.email, 254).toLowerCase();
   const password = String(b.password == null ? '' : b.password).slice(0, 256);
 
-  // Only FAILED attempts count, and the per-account counter is scoped to the caller's IP, so a stranger
-  // cannot lock the real admin out by guessing passwords from elsewhere.
-  const ipKey = 'login-fail-ip:' + hash;
-  const accKey = 'login-fail:' + (await sha256Hex(email + '|' + hash));
-  if ((await rateExceeded(env, ipKey, 20, 900)) || (await rateExceeded(env, accKey, 5, 900))) throw new HttpError(429, 'rate_limited');
+  // Every attempt is counted BEFORE the slow password check (the counter is an atomic upsert), so parallel
+  // requests cannot all slip under the limit. A successful login clears the per-account counter below.
+  // The per-account counter is scoped to the caller's IP, so a stranger cannot lock the real admin out.
+  const ipKey = 'login-ip:' + hash;
+  const accKey = 'login-acc:' + (await sha256Hex(email + '|' + hash));
+  if (!(await rateLimit(env, ipKey, 20, 900)) || !(await rateLimit(env, accKey, 5, 900))) throw new HttpError(429, 'rate_limited');
 
-  const fail = async () => {
-    await rateLimit(env, ipKey, 20, 900);
-    await rateLimit(env, accKey, 5, 900);
-    throw new HttpError(401, 'invalid_credentials');
-  };
+  const fail = () => { throw new HttpError(401, 'invalid_credentials'); };
   if (!EMAIL_RE.test(email) || !password) await fail();
 
   const admin = await env.DB.prepare('SELECT id, email, password_hash FROM admins WHERE email = ?1').bind(email).first();
@@ -152,13 +149,15 @@ export async function updateSubscriber(context, idRaw) {
   await requireAdmin(context);
   const id = parseId(idRaw);
   const b = await readJson(context.request, 1024);
+  let r;
   if (b.status === 'unsubscribed') {
-    await context.env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?1 WHERE id = ?2").bind(nowIso(), id).run();
+    r = await context.env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?1 WHERE id = ?2").bind(nowIso(), id).run();
   } else if (b.status === 'active') {
-    await context.env.DB.prepare("UPDATE subscribers SET status = 'active', unsubscribed_at = NULL, confirmed_at = COALESCE(confirmed_at, ?1) WHERE id = ?2").bind(nowIso(), id).run();
+    r = await context.env.DB.prepare("UPDATE subscribers SET status = 'active', unsubscribed_at = NULL, confirmed_at = COALESCE(confirmed_at, ?1) WHERE id = ?2").bind(nowIso(), id).run();
   } else {
     throw new HttpError(400, 'invalid_status');
   }
+  if (!r.meta.changes) throw new HttpError(404, 'not_found');
   return json(200, { ok: true });
 }
 

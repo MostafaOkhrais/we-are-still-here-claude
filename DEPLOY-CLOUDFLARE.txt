@@ -129,7 +129,8 @@ G) Post-deploy checklist
 Local development
    1. cp .dev.vars.example .dev.vars
    2. npm run db:migrate:local
-   3. ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-long-password' npm run admin:create
-      (or run without the variables to be prompted)
+   3. npm run admin:create        (asks for the email and a password of 12 or more characters; the password
+      is not typed on the command line, so it stays out of the shell history. If your terminal does not take
+      the hidden input, set ADMIN_EMAIL and ADMIN_PASSWORD for that session only and close the terminal afterwards.)
    4. npm run dev        -> http://127.0.0.1:8788   (EMAIL_DRY_RUN=1 prints emails to the console)
    Local data lives in .wrangler/ (git-ignored). Delete that folder to start over.

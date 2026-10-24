@@ -109,8 +109,32 @@ footer p a { display: inline; min-height: 0; }
 /* Arabic letters join: letter-spacing pulls them apart */
 html[lang="ar"] * { letter-spacing: 0 !important; }
 
-/* Without JavaScript the newsletter form cannot work: hide it and show the note beside it */
-html:not(.js-enabled) form.newsletter { display: none; }
+/* The newsletter form only appears once newsletter.js has attached to it (data-ready). Without JavaScript, or if the
+   script fails, a visible form would submit to the page itself and fail; the <noscript> note covers the former case. */
+form.newsletter:not([data-ready]) { display: none; }
+
+/* Links page (/links): a stand-alone page without the site header and footer */
+.links-page { background: radial-gradient(circle at top, #f8faf9 0%, #edf2ef 100%); }
+.link-card { transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out), background-color .25s; }
+.link-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(27,67,50,.12), 0 4px 6px -2px rgba(27,67,50,.05); }
+.link-card:active { transform: translateY(0); }
+@keyframes cta-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(21,128,61,.35); } 50% { box-shadow: 0 0 0 8px rgba(21,128,61,0); } }
+.cta-pulse { animation: cta-pulse 2.5s infinite; }
+.lang-btn { min-height: 0; padding: 4px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; color: #475569; transition: background-color .2s, color .2s; }
+.lang-btn[aria-pressed="true"] { background: #064e3b; color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+.qr-dialog { padding: 0; border: 0; background: transparent; width: calc(100% - 2rem); max-width: 24rem; max-height: calc(100dvh - 2rem); overflow: visible; }
+.qr-dialog::backdrop { background: rgba(15,23,42,.6); backdrop-filter: blur(4px); }
+@keyframes enter-up { from { opacity: 0; transform: translateY(20px); } }
+.links-page .links-head, .links-page .links-qr, .links-page .links-foot, .links-page #links-container > a { animation: enter-up .75s var(--ease-out) backwards; }
+.links-page .links-head { animation-delay: .08s; }
+.links-page #links-container > a:nth-child(1) { animation-delay: .16s; }
+.links-page #links-container > a:nth-child(2) { animation-delay: .24s; }
+.links-page #links-container > a:nth-child(3) { animation-delay: .32s; }
+.links-page #links-container > a:nth-child(4) { animation-delay: .40s; }
+.links-page #links-container > a:nth-child(5) { animation-delay: .48s; }
+.links-page #links-container > a:nth-child(6) { animation-delay: .56s; }
+.links-page .links-qr { animation-delay: .64s; }
+.links-page .links-foot { animation-delay: .72s; }
 
 /* Open mobile menu scrolls inside the screen (the page behind it is locked) */
 #main-nav-mobile { max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; }

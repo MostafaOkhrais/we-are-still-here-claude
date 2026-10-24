@@ -19,6 +19,7 @@
       var status = form.querySelector('.nl-status');
       var hp = form.querySelector('input[name="website"]');
       if(!input || !btn || !status) return;
+      form.setAttribute('data-ready', '');
       function btnLabel(){ return document.documentElement.lang === 'en' ? (btn.getAttribute('data-en') || btn.textContent) : (btn.getAttribute('data-ar') || btn.textContent); }
       function show(ok, msg){
         status.hidden = false;

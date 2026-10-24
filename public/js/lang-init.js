@@ -18,10 +18,12 @@
     var q = null;
     try{ q = new URLSearchParams(window.location.search).get('lang'); }catch(e){}
     var lang = (q === 'ar' || q === 'en') ? q : null;
+    // A page can name its own default (the /links page opens in Arabic); every other page defaults to English.
+    var def = root.getAttribute('data-default-lang') === 'ar' ? 'ar' : 'en';
     if(!lang){
-      try{ lang = window.localStorage.getItem('wash-lang-v2') || 'en'; }catch(e){ lang = 'en'; }
+      try{ lang = window.localStorage.getItem('wash-lang-v2') || def; }catch(e){ lang = def; }
     }
-    if(lang !== 'ar' && lang !== 'en') lang = 'en';
+    if(lang !== 'ar' && lang !== 'en') lang = def;
     root.lang = lang;
     root.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }catch(e){}

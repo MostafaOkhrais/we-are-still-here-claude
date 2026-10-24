@@ -73,6 +73,9 @@ function build(page) {
   // Text for visitors without JavaScript (not covered by data-ar, because main.js never runs for them).
   html = html.replace('To subscribe, please turn on JavaScript or email us at ', 'للاشتراك في النشرة يُرجى تفعيل جافاسكربت أو مراسلتنا على ');
 
+  // The no-JavaScript notes on the shop and team pages are bilingual in the source; the Arabic page keeps the Arabic half.
+  html = html.replace('Please enable JavaScript to view the products. / ', '').replace('Please enable JavaScript to view the team. / ', '');
+
   // 3. Document language and direction.
   html = html.replace('<html lang="en" dir="ltr"', '<html lang="ar" dir="rtl"');
   html = html.replace(/aria-label="Switch to Arabic"/g, 'aria-label="Switch to English"');

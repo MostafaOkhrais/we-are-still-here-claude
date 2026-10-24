@@ -44,7 +44,7 @@ export async function contact(context) {
   if (countLinks(message) > 3) return json(200, { ok: true });
 
   const subject = subjectRaw || null;
-  const ua = cleanLine(request.headers.get('user-agent') || '', 300) || null;
+  const ua = cleanLine(request.headers.get('user-agent') || '', 100) || null;
   await env.DB.prepare(
     'INSERT INTO contact_messages (name, email, subject, message, lang, ip_hash, user_agent, created_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)'
   ).bind(name, email, subject, message, lang, hash, ua, nowIso()).run();
