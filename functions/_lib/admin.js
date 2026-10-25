@@ -149,14 +149,10 @@ export async function updateSubscriber(context, idRaw) {
   await requireAdmin(context);
   const id = parseId(idRaw);
   const b = await readJson(context.request, 1024);
-  let r;
-  if (b.status === 'unsubscribed') {
-    r = await context.env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?1 WHERE id = ?2").bind(nowIso(), id).run();
-  } else if (b.status === 'active') {
-    r = await context.env.DB.prepare("UPDATE subscribers SET status = 'active', unsubscribed_at = NULL, confirmed_at = COALESCE(confirmed_at, ?1) WHERE id = ?2").bind(nowIso(), id).run();
-  } else {
-    throw new HttpError(400, 'invalid_status');
-  }
+  // Only the subscriber can opt in (through the confirmation email): an admin can unsubscribe an address, never activate one.
+  if (b.status === 'active') throw new HttpError(409, 'confirmation_required');
+  if (b.status !== 'unsubscribed') throw new HttpError(400, 'invalid_status');
+  const r = await context.env.DB.prepare("UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?1 WHERE id = ?2").bind(nowIso(), id).run();
   if (!r.meta.changes) throw new HttpError(404, 'not_found');
   return json(200, { ok: true });
 }
@@ -276,7 +272,9 @@ export async function sendCampaign(context) {
 
   if (b.test) {
     if (!(await rateLimit(env, 'campaign-test:' + admin.id, 20, 3600))) throw new HttpError(429, 'rate_limited');
-    const res = await sendBatch(env, [build({ email: admin.email, lang: 'en', unsub_token: 'test' })]);
+    // The admin is not a subscriber: the footer link opens the page a subscriber sees after unsubscribing, and there is no one-click header.
+    const m = campaignEmail('en', subject, body, base + '/subscription?status=unsubscribed');
+    const res = await sendBatch(env, [{ to: admin.email, subject: m.subject, html: m.html, text: m.text }]);
     return json(res.ok ? 200 : 502, res.ok ? { ok: true, sent: 1, test: true } : { error: 'send_failed' });
   }
   if (!(await rateLimit(env, 'campaign:' + admin.id, 5, 3600))) throw new HttpError(429, 'rate_limited');

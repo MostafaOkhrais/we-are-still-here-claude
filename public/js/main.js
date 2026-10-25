@@ -40,7 +40,7 @@
     });
     document.querySelectorAll('[data-ar-label]').forEach(function(el){
       var lbl = lang==='ar'?el.getAttribute('data-ar-label'):el.getAttribute('data-en-label');
-      if(lbl!=null) el.setAttribute('aria-label', lbl);
+      if(lbl!=null){ el.setAttribute('aria-label', lbl); if(el.hasAttribute('title')) el.setAttribute('title', lbl); }
     });
     document.querySelectorAll('.lang-toggle').forEach(function(b){
       b.textContent = lang==='ar'?'EN':'AR';
@@ -177,7 +177,7 @@
       if(!links.id) links.id = 'main-nav-mobile';
       menu.setAttribute('aria-controls', links.id);
       menu.setAttribute('aria-expanded','false');
-      menu.setAttribute('aria-label','\u0641\u062a\u062d \u0627\u0644\u0642\u0627\u0626\u0645\u0629');
+      menu.setAttribute('aria-label',current()==='ar'?'\u0641\u062a\u062d \u0627\u0644\u0642\u0627\u0626\u0645\u0629':'Open menu');
 
       menu.addEventListener('click',function(){
         var lang=document.documentElement.lang==='ar'?'ar':'en';

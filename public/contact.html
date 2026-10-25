@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<script src="/js/lang-init.js?v=20261042"></script>
+<script src="/js/lang-init.js?v=20261043"></script>
 <meta name="google-site-verification" content="SxXRoXKBKzcJDUv7nZQZGLAdc99sD86745azFdv3l8E" />
 <title>Contact — We Are Still Here | Baqoun</title>
 <meta name="description" content="Contact We Are Still Here | Baqoun by form, email (info@wearestillhere.uk), WhatsApp or social media. We aim to reply within 24 to 48 hours.">
@@ -35,8 +35,8 @@
 <meta name="theme-color" content="#3A4D2A">
 <link rel="preload" href="/assets/fonts/inter/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter/Inter-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261042">
-<link rel="stylesheet" href="/css/tailwind.css?v=20261042">
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=20261043">
+<link rel="stylesheet" href="/css/tailwind.css?v=20261043">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["NGO","Organization"],"@id":"https://wearestillhere.uk/#organization","name":"We Are Still Here | Baqoun","alternateName":["Baqoun","باقون","We Are Still Here"],"url":"https://wearestillhere.uk/","logo":{"@type":"ImageObject","url":"https://wearestillhere.uk/assets/logo.png","width":801,"height":729},"image":"https://wearestillhere.uk/assets/og-image.png","description":"A Palestinian student-led initiative supporting and empowering university students in Gaza.","foundingDate":"2024-04","founder":{"@type":"Person","name":"Professor Zahid Pranjol","jobTitle":"Founder and Director"},"email":"info@wearestillhere.uk","areaServed":[{"@type":"Place","name":"Gaza"},{"@type":"Country","name":"United Kingdom"}],"knowsLanguage":["en","ar"],"knowsAbout":["Higher education in Gaza","Student support and scholarships","English conversation programmes","Academic and community partnerships","Literary and artistic projects"],"contactPoint":{"@type":"ContactPoint","contactType":"general enquiries","email":"info@wearestillhere.uk","availableLanguage":["English","Arabic"]},"potentialAction":{"@type":"DonateAction","name":"Donate to support students","target":"https://chuffed.org/project/we-are-still-here","recipient":{"@id":"https://wearestillhere.uk/#organization"}},"sameAs":["https://www.facebook.com/share/1C4kzyoLcq/?mibextid=wwXIfr","https://www.instagram.com/we.are.still.here","https://www.linkedin.com/company/we-are-stll-here/","https://chuffed.org/project/we-are-still-here","https://we-are-still-here-students.teemill.com/"]},{"@type":"WebSite","@id":"https://wearestillhere.uk/#website","url":"https://wearestillhere.uk/","name":"We Are Still Here | Baqoun","alternateName":["Baqoun","باقون"],"inLanguage":["en-GB","ar"],"publisher":{"@id":"https://wearestillhere.uk/#organization"}},{"@type":"ContactPage","@id":"https://wearestillhere.uk/contact#webpage","url":"https://wearestillhere.uk/contact","name":"Contact — We Are Still Here | Baqoun","description":"Contact We Are Still Here | Baqoun by form, email (info@wearestillhere.uk), WhatsApp or social media. We aim to reply within 24 to 48 hours.","inLanguage":"en-GB","isPartOf":{"@id":"https://wearestillhere.uk/#website"},"about":{"@id":"https://wearestillhere.uk/#organization"},"publisher":{"@id":"https://wearestillhere.uk/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://wearestillhere.uk/assets/og-image.png","width":1200,"height":630},"breadcrumb":{"@id":"https://wearestillhere.uk/contact#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://wearestillhere.uk/contact#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://wearestillhere.uk/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://wearestillhere.uk/contact"}]}]}</script>
 </head>
 <body class="bg-cream text-ink antialiased">
@@ -80,27 +80,27 @@
 
           <form class="contact space-y-4" action="mailto:info@wearestillhere.uk" method="post" enctype="text/plain" novalidate>
             <div class="grid sm:grid-cols-2 gap-4">
-              <label class="block">
-                <span class="block text-xs font-bold mb-1.5" data-ar="الاسم" data-en="Name">Name</span>
-                <input id="f-name" required name="name" maxlength="120" autocomplete="name" data-ar-ph="الاسم الكامل" data-en-ph="Full name" placeholder="Full name" aria-describedby="err-name" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+              <div class="block">
+                <label for="f-name" class="block text-xs font-bold mb-1.5" data-ar="الاسم" data-en="Name">Name</label>
+                <input id="f-name" required name="name" maxlength="120" autocomplete="name" data-ar-ph="الاسم الكامل" data-en-ph="Full name" placeholder="Full name" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
                 <span class="field-error hidden mt-1 block" id="err-name" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
-              </label>
-              <label class="block">
-                <span class="block text-xs font-bold mb-1.5" data-ar="البريد الإلكتروني" data-en="Email">Email</span>
-                <input id="f-email" required type="email" name="email" maxlength="254" autocomplete="email" dir="ltr" data-ar-ph="البريد الإلكتروني" data-en-ph="Email address" placeholder="Email address" aria-describedby="err-email" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+              </div>
+              <div class="block">
+                <label for="f-email" class="block text-xs font-bold mb-1.5" data-ar="البريد الإلكتروني" data-en="Email">Email</label>
+                <input id="f-email" required type="email" name="email" maxlength="254" autocomplete="email" dir="ltr" data-ar-ph="البريد الإلكتروني" data-en-ph="Email address" placeholder="Email address" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
                 <span class="field-error hidden mt-1 block" id="err-email" role="alert" data-ar="يرجى إدخال بريد إلكتروني صالح" data-en="Please enter a valid email address">Please enter a valid email address</span>
-              </label>
+              </div>
             </div>
-            <label class="block">
-              <span class="block text-xs font-bold mb-1.5" data-ar="الموضوع" data-en="Subject">Subject</span>
-              <input id="f-subject" required name="subject" maxlength="200" autocomplete="off" data-ar-ph="موضوع الرسالة" data-en-ph="Message subject" placeholder="Message subject" aria-describedby="err-subject" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
+            <div class="block">
+              <label for="f-subject" class="block text-xs font-bold mb-1.5" data-ar="الموضوع" data-en="Subject">Subject</label>
+              <input id="f-subject" required name="subject" maxlength="200" autocomplete="off" data-ar-ph="موضوع الرسالة" data-en-ph="Message subject" placeholder="Message subject" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition">
               <span class="field-error hidden mt-1 block" id="err-subject" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
-            </label>
-            <label class="block">
-              <span class="block text-xs font-bold mb-1.5" data-ar="الرسالة" data-en="Message">Message</span>
-              <textarea id="f-message" required name="message" maxlength="5000" data-ar-ph="اكتب رسالتك هنا…" data-en-ph="Write your message here…" placeholder="Write your message here…" aria-describedby="err-message" rows="5" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition resize-y min-h-[130px]"></textarea>
+            </div>
+            <div class="block">
+              <label for="f-message" class="block text-xs font-bold mb-1.5" data-ar="الرسالة" data-en="Message">Message</label>
+              <textarea id="f-message" required name="message" maxlength="5000" data-ar-ph="اكتب رسالتك هنا…" data-en-ph="Write your message here…" placeholder="Write your message here…" rows="5" class="w-full px-4 py-3 rounded-xl border border-[#8A8A8A] bg-white text-sm placeholder:text-ink-muted focus:border-olive transition resize-y min-h-[130px]"></textarea>
               <span class="field-error hidden mt-1 block" id="err-message" role="alert" data-ar="هذا الحقل مطلوب" data-en="This field is required">This field is required</span>
-            </label>
+            </div>
             <label class="hp" aria-hidden="true"><span>website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-olive hover:bg-olive-dark text-white px-8 py-3.5 rounded-full font-bold text-sm shadow-card hover:shadow-lift hover:-translate-y-0.5 transition" type="submit">
               <span data-ar="إرسال الرسالة" data-en="Send message">Send message</span>
@@ -172,6 +172,7 @@
           <li><a href="/news" class="text-[#CFCABB] hover:text-white transition" data-ar="الأخبار" data-en="News">News</a></li>
           <li><a href="/contact" class="text-[#CFCABB] hover:text-white transition" data-ar="تواصل معنا" data-en="Contact">Contact</a></li>
           <li><a href="/privacy" class="text-[#CFCABB] hover:text-white transition" data-ar="سياسة الخصوصية" data-en="Privacy Policy">Privacy Policy</a></li>
+          <li><a href="/links" class="text-[#CFCABB] hover:text-white transition" data-ar="جميع روابطنا" data-en="All our links">All our links</a></li>
           <li><a href="https://chuffed.org/project/we-are-still-here" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-gold hover:text-white font-bold transition" data-ar="تبرع عبر Chuffed ↗" data-en="Donate via Chuffed ↗">Donate via Chuffed ↗</a></li>
         </ul>
       </div>
@@ -205,6 +206,6 @@
     </div>
   </div>
 </footer>
-<script src="/js/app-config.js?v=20261042" charset="utf-8"></script><script src="/js/main.js?v=20261042" charset="utf-8"></script><script src="/js/newsletter.js?v=20261042" charset="utf-8"></script><script src="/js/contact-form.js?v=20261042" charset="utf-8"></script>
+<script src="/js/app-config.js?v=20261043" charset="utf-8"></script><script src="/js/main.js?v=20261043" charset="utf-8"></script><script src="/js/newsletter.js?v=20261043" charset="utf-8"></script><script src="/js/contact-form.js?v=20261043" charset="utf-8"></script>
 </body>
 </html>

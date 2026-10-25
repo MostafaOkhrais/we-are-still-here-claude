@@ -10,7 +10,6 @@
     welcome: {ar:'مرحبًا', en:'Welcome'},
     noRows: {ar:'لا توجد عناصر بعد.', en:'No items yet.'},
     unsub: {ar:'إلغاء الاشتراك', en:'Unsubscribe'},
-    resub: {ar:'إعادة تفعيل', en:'Reactivate'},
     del: {ar:'حذف', en:'Delete'},
     confirmDelete: {ar:'اضغط مرة أخرى للحذف', en:'Click again to delete'},
     subjectFallback: {ar:'(بدون موضوع)', en:'(no subject)'},
@@ -180,10 +179,13 @@
       var tdB = el('td'); tdB.appendChild(el('span', 'badge ' + (s.status === 'unsubscribed' ? 'archived' : s.status), stLabel(s.status)));
       tr.appendChild(tdB);
       var tdA = el('td');
-      var btn = el('button', 'btn ghost', s.status === 'active' ? t('unsub') : t('resub'));
-      btn.setAttribute('type', 'button');
-      btn.addEventListener('click', function(){ toggleSub(s, btn); });
-      tdA.appendChild(btn);
+      // Only the subscriber can opt in again (confirmation email), so inactive rows have no activate button.
+      if(s.status === 'active'){
+        var btn = el('button', 'btn ghost', t('unsub'));
+        btn.setAttribute('type', 'button');
+        btn.addEventListener('click', function(){ unsubscribe(s, btn); });
+        tdA.appendChild(btn);
+      }
       tdA.appendChild(deleteButton(function(){
         api('/subscribers/' + encodeURIComponent(s.id), {method: 'DELETE'})
           .then(function(){ loadSubs(); loadStats(); })
@@ -193,9 +195,9 @@
       tbody.appendChild(tr);
     });
   }
-  function toggleSub(s, btn){
+  function unsubscribe(s, btn){
     btn.disabled = true;
-    api('/subscribers/' + encodeURIComponent(s.id), {method: 'PATCH', body: {status: s.status === 'active' ? 'unsubscribed' : 'active'}})
+    api('/subscribers/' + encodeURIComponent(s.id), {method: 'PATCH', body: {status: 'unsubscribed'}})
       .then(function(){ loadSubs(); loadStats(); })
       .catch(authOr(function(){ btn.disabled = false; showSt('app-status', 'err', t('saveFail')); }));
   }

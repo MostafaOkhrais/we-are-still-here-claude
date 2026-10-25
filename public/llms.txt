@@ -29,6 +29,7 @@ The website is available in English and Arabic. Each Arabic page has its own URL
 - [Donate (Chuffed)](https://chuffed.org/project/we-are-still-here): fundraising page for student programmes.
 - [Teemill shop](https://we-are-still-here-students.teemill.com/): merchandise; proceeds support student programmes in Gaza.
 - [Books (Daraja Press)](https://darajapress.com/publication/we-are-still-here/): two published books.
+- [Official links](https://wearestillhere.uk/links): every official profile and contact channel on one page (Arabic and English).
 - Email: info@wearestillhere.uk
 
 ## Optional

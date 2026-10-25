@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, loadData, lastModified, pageGraph, jsonLdScript, faqSection, FAQ_START, FAQ_END, llmsTxt, llmsFullTxt } from './seo.mjs';
+import { TEAM_START, TEAM_END, SHOP_START, SHOP_END, teamHtml, shopHtml, insertBlock } from './prerender.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OG_ALT_AR = 'باقون | We Are Still Here: مبادرة طلابية فلسطينية لدعم طلاب الجامعات في غزة';
@@ -66,6 +67,8 @@ function prepare(page) {
     if (a >= 0 && b > a) html = html.slice(0, a) + faq + html.slice(b + FAQ_END.length);
     else html = html.replace('</main>', () => faq + '\n</main>');
   }
+  if (page.name === 'team') html = insertBlock(html, '<div id="team-sections" class="space-y-12">', TEAM_START, TEAM_END, teamHtml(data.team));
+  if (page.name === 'shop') html = insertBlock(html, '<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5" id="shop-grid">', SHOP_START, SHOP_END, shopHtml(data.shop));
 
   const title = titleOf(html);
   const desc = descOf(html);
@@ -102,14 +105,14 @@ function build(page) {
         stats.attrs++;
       }
     }
+    // A tooltip repeats the element's label (icon links).
+    const label = attr(t, 'data-ar-label');
+    if (label != null && attr(t, 'title') != null) t = setAttr(t, 'title', label);
     return t;
   });
 
   // Text for visitors without JavaScript (not covered by data-ar, because main.js never runs for them).
   html = html.replace('To subscribe, please turn on JavaScript or email us at ', 'للاشتراك في النشرة يُرجى تفعيل جافاسكربت أو مراسلتنا على ');
-
-  // The no-JavaScript notes on the shop and team pages are bilingual in the source; the Arabic page keeps the Arabic half.
-  html = html.replace('Please enable JavaScript to view the products. / ', '').replace('Please enable JavaScript to view the team. / ', '');
 
   // 3. Document language and direction.
   html = html.replace('<html lang="en" dir="ltr"', '<html lang="ar" dir="rtl"');

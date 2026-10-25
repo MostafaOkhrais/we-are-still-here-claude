@@ -318,6 +318,7 @@ export function llmsTxt(pages) {
     '- [Donate (Chuffed)](' + CHUFFED + '): fundraising page for student programmes.',
     '- [Teemill shop](' + TEEMILL + '): merchandise; proceeds support student programmes in Gaza.',
     '- [Books (Daraja Press)](' + DARAJA + '): two published books.',
+    '- [Official links](' + SITE + '/links): every official profile and contact channel on one page (Arabic and English).',
     '- Email: ' + EMAIL,
     '',
     '## Optional',

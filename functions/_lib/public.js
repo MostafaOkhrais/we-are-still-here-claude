@@ -177,8 +177,8 @@ export async function unsubscribe(context) {
     token = String(b.token || '');
   }
   if (!TOKEN_RE.test(token)) throw new HttpError(400, 'invalid_token');
-  const hash = await ipHash(request, env);
-  if (!(await rateLimit(env, 'unsub:' + hash, 30, HOUR))) throw new HttpError(429, 'rate_limited');
+  // No per-IP limit: one-click unsubscribes arrive from shared mail-provider addresses and must never be refused,
+  // and a 256-bit token cannot be guessed.
   const row = await env.DB.prepare(
     "UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ?1 WHERE unsub_token = ?2 RETURNING id"
   ).bind(nowIso(), token).first();
